@@ -19,10 +19,11 @@ public class IntervalTimer extends Application {
     
     @Override
     public void start(Stage stage) throws Exception {
-        Parent root = FXMLLoader.load(getClass().getResource("initFXML.fxml"));
+        Parent root = FXMLLoader.load(getClass().getResource("mainFXML.fxml"));
         
         Scene scene = new Scene(root);
-        
+        Application.setUserAgentStylesheet(getClass().getResource("/css/styleMain.css").toExternalForm());
+        stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
     }

@@ -8,3 +8,14 @@ and open the template in the editor.
     Author     : Marcos
 */
 
+.button{
+    -fx-text-fill: #FFF5F4; /* Sets font colour (hex) */
+    -fx-background-color: #FFCDB8; /* Sets background colour */
+    -fx-padding: 5px;
+    
+}
+
+#anchor{
+    background-image: url("/images/background.jpg");
+
+}

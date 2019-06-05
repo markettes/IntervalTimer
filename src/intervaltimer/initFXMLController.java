@@ -7,22 +7,26 @@ package intervaltimer;
 
 import java.net.URL;
 import java.util.ResourceBundle;
-import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
+import javafx.scene.layout.AnchorPane;
 
 /**
+ * FXML Controller class
  *
- * @author Marcos
+ * @author Carlos
  */
-public class mainFXMLController implements Initializable {
-    
-    
+public class initFXMLController implements Initializable {
+
+    @FXML
+    private AnchorPane anchorPane;
+
+    /**
+     * Initializes the controller class.
+     */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        
     }    
     
 }
