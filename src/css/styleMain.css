@@ -22,10 +22,7 @@ and open the template in the editor.
     
 }
 
-.root{
-    background-image: url("/images/background.jpg");
 
-}
 
 .gruposesion{
     vertical-align: central;
@@ -49,4 +46,9 @@ and open the template in the editor.
 #guardargrupo{
     -fx-background-color: #92D95F;
     
+}
+
+.promts{
+    -fx-text-inner-color: white;
+    -fx-prompt-text-fill: white;
 }
