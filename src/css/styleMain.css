@@ -10,8 +10,15 @@ and open the template in the editor.
 
 .button{
     -fx-text-fill: white ; /* Sets font colour (hex) */
-    -fx-background-color: #F24405; /* Sets background colour */
+    -fx-background-color: rgba(206,38,0,0.7); /* Sets background colour */
     -fx-padding: 5px;
+    -fx-font: 14px "Open Sans";
+    
+    
+}
+
+.margen{
+    -fx-font: 20px "Open Sans Bold";
     
 }
 
@@ -20,3 +27,12 @@ and open the template in the editor.
 
 }
 
+.gruposesion{
+    vertical-align: central;
+    
+}
+
+#grupoimg{
+    -fx-border-radius: 50%;
+    
+}

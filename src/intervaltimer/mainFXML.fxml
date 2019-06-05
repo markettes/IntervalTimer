@@ -6,6 +6,7 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
@@ -16,22 +17,96 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <VBox layoutY="238.0" prefHeight="482.0" prefWidth="421.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
+      <HBox layoutX="15.0" layoutY="446.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
          <children>
-            <Label text="GRUPO">
-               <font>
-                  <Font name="Open Sans ExtraBold" size="20.0" />
-               </font>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </Label>
-            <JFXButton prefHeight="27.0" prefWidth="88.0" ripplerFill="WHITE" text="Button">
-               <VBox.margin>
-                  <Insets top="10.0" />
-               </VBox.margin>
-            </JFXButton>
+            <VBox prefHeight="241.0" prefWidth="139.0">
+               <children>
+                  <Label styleClass="margen" text="GRUPO" textFill="WHITE">
+                     <font>
+                        <Font name="Open Sans ExtraBold" size="20.0" />
+                     </font>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton layoutX="10.0" layoutY="49.0" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <Label styleClass="margen" text="SESIÓN" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <JFXButton prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </JFXButton>
+                  <JFXButton prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                  </JFXButton>
+               </children>
+            </VBox>
+            <VBox prefHeight="258.0" prefWidth="241.0">
+               <children>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
+                     <VBox.margin>
+                        <Insets top="40.0" />
+                     </VBox.margin>
+                     <children>
+                        <ImageView id="grupoimg" fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/team.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" styleClass="gruposesion" text="Grupo X" textFill="WHITE">
+                           <font>
+                              <Font name="Open Sans Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" top="27.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                  </HBox>
+                  <HBox layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
+                     <children>
+                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets left="20.0" />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/team.png" />
+                           </image>
+                        </ImageView>
+                        <Label alignment="TOP_LEFT" contentDisplay="TOP" styleClass="gruposesion" text="Grupo X" textFill="WHITE">
+                           <font>
+                              <Font name="Open Sans Bold" size="14.0" />
+                           </font>
+                           <HBox.margin>
+                              <Insets left="10.0" top="27.0" />
+                           </HBox.margin>
+                        </Label>
+                     </children>
+                     <VBox.margin>
+                        <Insets top="70.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
          </children>
-      </VBox>
+      </HBox>
    </children>
 </AnchorPane>
