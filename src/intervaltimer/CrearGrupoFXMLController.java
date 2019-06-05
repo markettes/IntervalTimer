@@ -43,25 +43,19 @@ public class CrearGrupoFXMLController implements Initializable {
     private JFXTextField codgrupoTextField;
     @FXML
     private JFXTextArea descTextArea;
-
+    Grupo nuevoGrupo;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
+        
     }    
 
     @FXML
     private void crearGrupoAct(ActionEvent event) {
-     Grupo nuevoGrupo = new Grupo();
-        if(codgrupoTextField.getText() == null || codgrupoTextField.getText().trim().isEmpty()){
-            Alert alertCodeGroup = new Alert(Alert.AlertType.INFORMATION);
-            alertCodeGroup.setTitle("Faltan datos");
-            alertCodeGroup.setHeaderText("Por favor, introduce un código de grupo");
-            alertCodeGroup.setContentText("No se puede guardar el médico si no introduce un código de grupo numérico válido");
-            alertCodeGroup.showAndWait();
-        }
+    
+       
     }
 
     @FXML
@@ -78,6 +72,26 @@ public class CrearGrupoFXMLController implements Initializable {
 
     @FXML
     private void guardarGrupoAct(ActionEvent event) {
+        if(codgrupoTextField.getText() == null || codgrupoTextField.getText().trim().isEmpty()){
+            Alert alertCodeGroup = new Alert(Alert.AlertType.INFORMATION);
+            alertCodeGroup.setTitle("Faltan datos");
+            alertCodeGroup.setHeaderText("Por favor, introduce un código de grupo");
+            alertCodeGroup.setContentText("No se puede guardar el grupo si no introduce un código de grupo numérico válido");
+            alertCodeGroup.showAndWait();
+        }else if(descTextArea.getText() == null || descTextArea.getText().trim().isEmpty()){
+            Alert alertDescGroup = new Alert(Alert.AlertType.INFORMATION);
+            alertDescGroup.setTitle("Faltan datos");
+            alertDescGroup.setHeaderText("Por favor, introduce una descripción");
+            alertDescGroup.setContentText("No se puede guardar el grupo si no introduce una descripción");
+            alertDescGroup.showAndWait();
+        }else{
+            nuevoGrupo = new Grupo();
+            nuevoGrupo.setCodigo(codgrupoTextField.toString());
+            nuevoGrupo.setDescripcion(descTextArea.toString());
+            //nuevoGrupo.setDefaultTipoSesion();
+        }
+        
+        
     }
 
     @FXML

@@ -7,13 +7,17 @@ package intervaltimer;
 
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ResourceBundle;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
+import modelo.Grupo;
+import modelo.Sesion;
 
 /**
  *
@@ -32,9 +36,9 @@ public class mainFXMLController implements Initializable {
     @FXML
     private JFXButton modSesion;
     @FXML
-    private JFXComboBox<?> grupoComboBox;
+    private JFXComboBox<Grupo> grupoComboBox;
     @FXML
-    private JFXComboBox<?> sesionComboBox;
+    private JFXComboBox<Sesion> sesionComboBox; //O tipo SesiónTipo
     
     
     @Override
@@ -44,7 +48,9 @@ public class mainFXMLController implements Initializable {
     }    
 
     @FXML
-    private void crearGrupoAct(ActionEvent event) {
+    private void crearGrupoAct(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
     }
 
     @FXML
