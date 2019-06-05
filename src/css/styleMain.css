@@ -9,8 +9,8 @@ and open the template in the editor.
 */
 
 .button{
-    -fx-text-fill: #FFF5F4; /* Sets font colour (hex) */
-    -fx-background-color: #FFCDB8; /* Sets background colour */
+    -fx-text-fill: white ; /* Sets font colour (hex) */
+    -fx-background-color: #F24405; /* Sets background colour */
     -fx-padding: 5px;
     
 }
@@ -19,3 +19,4 @@ and open the template in the editor.
     background-image: url("/images/background.jpg");
 
 }
+

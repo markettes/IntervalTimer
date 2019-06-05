@@ -1,9 +1,13 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.geometry.Insets?>
+<?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
-<?import javafx.scene.shape.Rectangle?>
+<?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
 <AnchorPane id="anchor" fx:id="anchorPane" prefHeight="720.0" prefWidth="1280.0" style="-fx-background-color: #417CF2;" stylesheets="@../css/styleMain.css" xmlns="http://javafx.com/javafx/8.0.171" xmlns:fx="http://javafx.com/fxml/1" fx:controller="intervaltimer.initFXMLController">
    <children>
@@ -12,6 +16,22 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <Rectangle arcHeight="5.0" arcWidth="5.0" fill="DODGERBLUE" height="50.0" layoutX="25.0" layoutY="305.0" stroke="BLACK" strokeType="INSIDE" width="250.0" />
+      <VBox layoutY="238.0" prefHeight="482.0" prefWidth="421.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
+         <children>
+            <Label text="GRUPO">
+               <font>
+                  <Font name="Open Sans ExtraBold" size="20.0" />
+               </font>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
+            </Label>
+            <JFXButton prefHeight="27.0" prefWidth="88.0" ripplerFill="WHITE" text="Button">
+               <VBox.margin>
+                  <Insets top="10.0" />
+               </VBox.margin>
+            </JFXButton>
+         </children>
+      </VBox>
    </children>
 </AnchorPane>
