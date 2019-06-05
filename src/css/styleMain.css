@@ -15,7 +15,7 @@ and open the template in the editor.
     
 }
 
-#anchor{
+.root{
     background-image: url("/images/background.jpg");
 
 }
