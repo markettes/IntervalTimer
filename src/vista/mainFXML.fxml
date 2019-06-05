@@ -112,6 +112,7 @@
             <Font name="Open Sans ExtraBold" size="200.0" />
          </font>
       </Label>
-      <JFXProgressBar layoutX="499.0" layoutY="47.0" progress="0.0" />
+      <JFXProgressBar layoutX="662.0" layoutY="430.0" prefHeight="13.0" progress="0.0" rotate="180.0" />
+      <JFXProgressBar layoutX="862.0" layoutY="430.0" prefHeight="13.0" progress="0.0" />
    </children>
 </AnchorPane>
