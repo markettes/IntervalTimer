@@ -36,3 +36,17 @@ and open the template in the editor.
     -fx-border-radius: 50%;
     
 }
+
+.pestanyas{
+    -fx-text-fill: white ; /* Sets font colour (hex) */
+    -fx-background-color: rgb(242, 68, 4); /* Sets background colour */
+    -fx-padding: 5px;
+    -fx-font: 14px "Open Sans";
+    -fx-border-radius: 15px 50px 30px 5px;
+    
+}
+
+#guardargrupo{
+    -fx-background-color: #92D95F;
+    
+}
