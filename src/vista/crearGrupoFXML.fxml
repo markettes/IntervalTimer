@@ -35,12 +35,12 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="crearGrupo" onAction="#crearGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                  <JFXButton fx:id="crearGrupo" buttonType="RAISED" onAction="#crearGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="modGrupo" disable="true" layoutX="10.0" layoutY="49.0" onAction="#modGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
+                  <JFXButton fx:id="modGrupo" buttonType="RAISED" disable="true" layoutX="10.0" layoutY="49.0" onAction="#modGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -50,12 +50,12 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="crearSesion" onAction="#crearSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                  <JFXButton fx:id="crearSesion" buttonType="RAISED" onAction="#crearSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="modSesion" disable="true" onAction="#modSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Mostrar Gráficas">
+                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Mostrar Gráficas">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -77,7 +77,7 @@
                               <Image url="@../images/team.png" />
                            </image>
                         </ImageView>
-                        <JFXComboBox fx:id="grupoComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar grupo" unFocusColor="WHITE">
+                        <JFXComboBox fx:id="grupoComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar grupo" styleClass="promts" unFocusColor="WHITE">
                            <HBox.margin>
                               <Insets left="10.0" top="26.0" />
                            </HBox.margin>
@@ -94,7 +94,7 @@
                               <Image url="@../images/stopwatch.png" />
                            </image>
                         </ImageView>
-                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" unFocusColor="WHITE">
+                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" styleClass="promts" unFocusColor="WHITE">
                            <HBox.margin>
                               <Insets left="10.0" top="26.0" />
                            </HBox.margin>
@@ -125,7 +125,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label styleClass="margen" text="Crear Grupo" textFill="WHITE" GridPane.columnSpan="2" />
+            <Label styleClass="margen" text="CREAR GRUPO" textFill="WHITE" GridPane.columnSpan="2" />
             <Label alignment="CENTER_RIGHT" text="Código" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <font>
                   <Font name="Open Sans Regular" size="15.0" />
@@ -134,7 +134,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextField fx:id="codgrupoTextField" focusColor="#8fe872" prefHeight="25.0" prefWidth="329.0" promptText="Indica el código del grupo" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXTextField fx:id="codgrupoTextField" focusColor="#8fe872" prefHeight="25.0" prefWidth="329.0" promptText="Indica el código del grupo" style="-fx-prompt-text-fill: white;" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -147,13 +147,14 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextArea fx:id="descTextArea" focusColor="#8fe872" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="352.0" promptText="Escribe aquí una descripción para el grupo" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <JFXTextArea fx:id="descTextArea" focusColor="#8fe872" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="352.0" promptText="Escribe aquí una descripción para el grupo" style="-fx-border-color: whit;" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
                <GridPane.margin>
                   <Insets left="20.0" top="26.0" />
                </GridPane.margin>
             </JFXTextArea>
-            <JFXButton id="guardargrupo" onAction="#guardarGrupoAct" prefHeight="30.0" prefWidth="206.0" text="Guardar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <JFXButton onAction="#volverGrupoAct" prefHeight="30.0" prefWidth="126.0" text="Volver" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXButton id="guardargrupo" buttonType="RAISED" onAction="#guardarGrupoAct" prefHeight="30.0" prefWidth="206.0" text="Guardar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
+            <JFXButton buttonType="RAISED" onAction="#volverGrupoAct" prefHeight="30.0" prefWidth="126.0" text="Volver" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <Label layoutX="10.0" layoutY="42.0" styleClass="margen" text="CREAR GRUPO" textFill="WHITE" />
          </children>
       </GridPane>
    </children>

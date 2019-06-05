@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXProgressBar?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
@@ -30,12 +31,12 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="crearGrupo" onAction="#crearGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                  <JFXButton fx:id="crearGrupo" buttonType="RAISED" onAction="#crearGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="modGrupo" disable="true" layoutX="10.0" layoutY="49.0" onAction="#modGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
+                  <JFXButton fx:id="modGrupo" buttonType="RAISED" disable="true" layoutX="10.0" layoutY="49.0" onAction="#modGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -45,12 +46,12 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="crearSesion" onAction="#crearSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                  <JFXButton fx:id="crearSesion" buttonType="RAISED" onAction="#crearSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
                   </JFXButton>
-                  <JFXButton fx:id="modSesion" disable="true" onAction="#modSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Mostrar Gráficas">
+                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Mostrar Gráficas">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
@@ -72,7 +73,7 @@
                               <Image url="@../images/team.png" />
                            </image>
                         </ImageView>
-                        <JFXComboBox fx:id="grupoComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar grupo" unFocusColor="WHITE">
+                        <JFXComboBox fx:id="grupoComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar grupo" styleClass="promts" unFocusColor="WHITE">
                            <HBox.margin>
                               <Insets left="10.0" top="26.0" />
                            </HBox.margin>
@@ -89,7 +90,7 @@
                               <Image url="@../images/stopwatch.png" />
                            </image>
                         </ImageView>
-                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" unFocusColor="WHITE">
+                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" styleClass="promts" unFocusColor="WHITE">
                            <HBox.margin>
                               <Insets left="10.0" top="26.0" />
                            </HBox.margin>
@@ -106,5 +107,11 @@
             </VBox>
          </children>
       </HBox>
+      <Label layoutX="599.0" layoutY="191.0" text="00:00" textFill="WHITE">
+         <font>
+            <Font name="Open Sans ExtraBold" size="200.0" />
+         </font>
+      </Label>
+      <JFXProgressBar layoutX="499.0" layoutY="47.0" progress="0.0" />
    </children>
 </AnchorPane>
