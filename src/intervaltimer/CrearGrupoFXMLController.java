@@ -55,8 +55,6 @@ public class CrearGrupoFXMLController implements Initializable {
     private JFXTextField codgrupoTextField;
     @FXML
     private JFXTextArea descTextArea;
-    @FXML
-    private JFXComboBox<String> sesionTipoComboBox;
     Grupo nuevoGrupo;
     AccesoBD database = AccesoBD.getInstance();
     Gym gimnasio = database.getGym();
