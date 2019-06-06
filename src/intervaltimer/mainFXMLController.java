@@ -39,8 +39,6 @@ public class mainFXMLController implements Initializable {
     @FXML
     private JFXButton crearSesion;
     @FXML
-    private JFXButton modSesion;
-    @FXML
     private JFXComboBox<String> grupoComboBox;
     @FXML
     private JFXComboBox<Sesion> sesionComboBox; //O tipo SesiónTipo
@@ -51,6 +49,8 @@ public class mainFXMLController implements Initializable {
     ArrayList<Grupo> gruposArrayList;
     static boolean modificarpressed;
     static Grupo grupoActual;
+    @FXML
+    private JFXButton graphButton;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -58,6 +58,7 @@ public class mainFXMLController implements Initializable {
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
+        graphButton.setDisable(true);
         
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -71,6 +72,8 @@ public class mainFXMLController implements Initializable {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
                 sesionComboBox.setDisable(false);
+                graphButton.setDisable(false);
+                
                 sesionComboBox.setPromptText("Seleccione sesión");
             }
 
@@ -99,8 +102,10 @@ public class mainFXMLController implements Initializable {
     }
 
     @FXML
-    private void modSesionAct(ActionEvent event) {
+    private void graphAct(ActionEvent event) throws IOException {
         //TODO
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/statsFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
     }
 
 }

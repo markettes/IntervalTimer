@@ -120,7 +120,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="36.0" prefWidth="164.0" ripplerFill="WHITE" styleClass="mostrargrafica" text="  Mostrar Gráficas">
+                  <JFXButton fx:id="graphButton" buttonType="RAISED" disable="true" onAction="#graphAct" prefHeight="36.0" prefWidth="164.0" ripplerFill="WHITE" styleClass="mostrargrafica" text="  Mostrar Gráficas">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>

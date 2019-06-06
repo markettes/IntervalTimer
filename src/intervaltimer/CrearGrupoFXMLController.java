@@ -48,8 +48,6 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private JFXButton crearSesion;
     @FXML
-    private JFXButton modSesion;
-    @FXML
     private JFXComboBox<String> grupoComboBox;
     @FXML
     private JFXComboBox<Sesion> sesionComboBox;
@@ -64,6 +62,8 @@ public class CrearGrupoFXMLController implements Initializable {
     ArrayList<Grupo> gruposArrayList;
     @FXML
     private Label crearmodificargrupolabel;
+    @FXML
+    private JFXButton graphButton;
 
     /**
      * Initializes the controller class.
@@ -73,6 +73,7 @@ public class CrearGrupoFXMLController implements Initializable {
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
+        graphButton.setDisable(true);
 
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -81,6 +82,7 @@ public class CrearGrupoFXMLController implements Initializable {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > 0) {
                 sesionComboBox.setDisable(false);
                 modGrupo.setDisable(false);
+                graphButton.setDisable(false);
                 sesionComboBox.setPromptText("Seleccione sesión");
 
             }
@@ -131,9 +133,6 @@ public class CrearGrupoFXMLController implements Initializable {
     private void crearSesionAct(ActionEvent event) {
     }
 
-    @FXML
-    private void modSesionAct(ActionEvent event) {
-    }
 
     @FXML
     private void guardarGrupoAct(ActionEvent event) throws IOException {
@@ -156,7 +155,7 @@ public class CrearGrupoFXMLController implements Initializable {
                 nuevoGrupo.setCodigo(codgrupoTextField.getText());
                 nuevoGrupo.setDescripcion(descTextArea.getText());
                 gruposArrayList.add(nuevoGrupo);
-                gimnasio.setGrupos(database.getGym().getGrupos());
+                gimnasio.setGrupos(gruposArrayList);
             } else {
                 grupoActual.setCodigo(codgrupoTextField.getText());
                 grupoActual.setDescripcion(descTextArea.getText());
@@ -172,6 +171,12 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private void volverGrupoAct(ActionEvent event) throws IOException {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
+    }
+
+    @FXML
+    private void graphAct(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/statsFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
     }
 
