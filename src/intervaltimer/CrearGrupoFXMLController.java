@@ -62,6 +62,7 @@ public class CrearGrupoFXMLController implements Initializable {
     Gym gimnasio = database.getGym();
     ObservableList<Grupo> gruposObs;
     ArrayList<Grupo> gruposArrayList;
+    static Grupo grupoActual;
     
     
     /**
@@ -79,6 +80,7 @@ public class CrearGrupoFXMLController implements Initializable {
         
         grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
         { 
+            
             if(newVal == null){
                 modGrupo.setDisable(true);
             }else{
@@ -103,8 +105,9 @@ public class CrearGrupoFXMLController implements Initializable {
     }
 
     @FXML
-    private void modGrupoAct(ActionEvent event) {
-        
+    private void modGrupoAct(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/modifGrupoFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
     }
 
     @FXML
