@@ -19,9 +19,9 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <HBox layoutX="15.0" layoutY="446.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0">
+      <HBox layoutX="14.0" layoutY="389.0" prefHeight="285.0" prefWidth="502.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0">
          <children>
-            <VBox prefHeight="286.0" prefWidth="223.0">
+            <VBox prefHeight="286.0" prefWidth="234.0">
                <children>
                   <Label styleClass="margen" text="GRUPO" textFill="WHITE">
                      <font>
@@ -31,7 +31,7 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="270.0">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="73.0" prefWidth="270.0">
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
@@ -56,19 +56,29 @@
                         <Insets top="30.0" />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="crearSesion" buttonType="RAISED" onAction="#crearSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
+                     <children>
+                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
+                           <HBox.margin>
+                              <Insets />
+                           </HBox.margin>
+                           <image>
+                              <Image url="@../images/stopwatch.png" />
+                           </image>
+                        </ImageView>
+                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" styleClass="promts" unFocusColor="WHITE">
+                           <HBox.margin>
+                              <Insets left="10.0" top="26.0" />
+                           </HBox.margin>
+                        </JFXComboBox>
+                     </children>
                      <VBox.margin>
                         <Insets top="15.0" />
                      </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Mostrar Gráficas">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </JFXButton>
+                  </HBox>
                </children>
             </VBox>
-            <VBox prefHeight="286.0" prefWidth="227.0">
+            <VBox prefHeight="286.0" prefWidth="248.0">
                <children>
                   <JFXButton fx:id="crearGrupo" buttonType="RAISED" onAction="#crearGrupoAct" prefHeight="36.0" prefWidth="93.0" ripplerFill="WHITE" text="  Crear">
                      <VBox.margin>
@@ -94,26 +104,30 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <HBox layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
-                     <children>
-                        <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
-                           <HBox.margin>
-                              <Insets left="20.0" />
-                           </HBox.margin>
-                           <image>
-                              <Image url="@../images/stopwatch.png" />
-                           </image>
-                        </ImageView>
-                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" styleClass="promts" unFocusColor="WHITE">
-                           <HBox.margin>
-                              <Insets left="10.0" top="26.0" />
-                           </HBox.margin>
-                        </JFXComboBox>
-                     </children>
+                  <JFXButton fx:id="crearSesion" buttonType="RAISED" onAction="#crearSesionAct" prefHeight="36.0" prefWidth="93.0" ripplerFill="WHITE" text="  Crear">
                      <VBox.margin>
                         <Insets top="65.0" />
                      </VBox.margin>
-                  </HBox>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/rounded-add-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="36.0" prefWidth="164.0" ripplerFill="WHITE" text="  Mostrar Gráficas">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/bar-chart.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
