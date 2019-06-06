@@ -69,7 +69,7 @@ public class StatsFXMLController implements Initializable {
 
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > 0 ) {
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
                 sesionComboBox.setDisable(false);
