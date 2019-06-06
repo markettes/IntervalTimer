@@ -34,9 +34,9 @@ public class CrearSesionFXMLController implements Initializable {
     @FXML
     private AnchorPane anchorPane;
     @FXML
-    private JFXComboBox<?> grupoComboBox;
+    private JFXComboBox<String> grupoComboBox;
     @FXML
-    private JFXComboBox<?> sesionComboBox;
+    private JFXComboBox<String> sesionComboBox;
     @FXML
     private JFXButton crearGrupo;
     @FXML
@@ -85,12 +85,14 @@ public class CrearSesionFXMLController implements Initializable {
 
     @FXML
     private void crearGrupoAct(ActionEvent event) throws IOException{
+        
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
     }
 
     @FXML
     private void modGrupoAct(ActionEvent event) throws IOException{
+        
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
     }

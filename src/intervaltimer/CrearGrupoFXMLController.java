@@ -103,8 +103,10 @@ public class CrearGrupoFXMLController implements Initializable {
     }    
 
     @FXML
-    private void crearGrupoAct(ActionEvent event) {
-        
+    private void crearGrupoAct(ActionEvent event) throws IOException {
+        modificarpressed = false;
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
        
     }
 
