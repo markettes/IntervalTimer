@@ -154,16 +154,6 @@
             </JFXTextArea>
             <JFXButton id="guardargrupo" buttonType="RAISED" onAction="#guardarGrupoAct" prefHeight="30.0" prefWidth="206.0" text="Guardar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
             <JFXButton buttonType="RAISED" onAction="#volverGrupoAct" prefHeight="30.0" prefWidth="126.0" text="Volver" GridPane.columnIndex="1" GridPane.rowIndex="4" />
-            <Label alignment="CENTER_RIGHT" layoutX="10.0" layoutY="235.0" text="Sesión Tipo" textFill="WHITE" GridPane.rowIndex="3">
-               <font>
-                  <Font name="Open Sans Regular" size="15.0" />
-               </font>
-            </Label>
-            <JFXComboBox fx:id="sesionTipoComboBox" focusColor="#8fe872" prefHeight="25.0" prefWidth="239.0" promptText="Elige una sesión tipo" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="3">
-               <GridPane.margin>
-                  <Insets left="20.0" />
-               </GridPane.margin>
-            </JFXComboBox>
          </children>
       </GridPane>
    </children>

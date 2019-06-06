@@ -12,6 +12,8 @@ import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -23,6 +25,7 @@ import modelo.Grupo;
 import modelo.Gym;
 import modelo.Sesion;
 import modelo.SesionTipo;
+
 
 /**
  * FXML Controller class
@@ -44,7 +47,7 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private JFXComboBox<String> grupoComboBox;
     @FXML
-    private JFXComboBox<?> sesionComboBox;
+    private JFXComboBox<Sesion> sesionComboBox;
     @FXML
     private JFXTextField codgrupoTextField;
     @FXML
@@ -60,21 +63,32 @@ public class CrearGrupoFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        ObservableList<SesionTipo> tipoSesiones = FXCollections.observableList(gimnasio.getTiposSesion());
-       
-        for(int i = 0; i < tipoSesiones.size(); i++){
-            sesionTipoComboBox.getItems().addAll("Sesion Tipo " + tipoSesiones.get(i).getCodigo());
-        }
+        grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
+        { 
+            if(newVal == null){
+                modGrupo.setDisable(true);
+            }else{
+                modGrupo.setDisable(false);
+               
+            
+        } });
+        
+        
+        
+
+        
+        
     }    
 
     @FXML
     private void crearGrupoAct(ActionEvent event) {
-    
+        
        
     }
 
     @FXML
     private void modGrupoAct(ActionEvent event) {
+        
     }
 
     @FXML
@@ -88,7 +102,7 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private void guardarGrupoAct(ActionEvent event) {
         if(codgrupoTextField.getText() == null || codgrupoTextField.getText().trim().isEmpty()){
-            Alert alertCodeGroup = new Alert(Alert.AlertType.INFORMATION);
+            Alert alertCodeGroup = new Alert(Alert.AlertType.ERROR);
             alertCodeGroup.setTitle("Faltan datos");
             alertCodeGroup.setHeaderText("Por favor, introduce un código de grupo");
             alertCodeGroup.setContentText("No se puede guardar el grupo si no introduce un código de grupo numérico válido");
@@ -103,8 +117,7 @@ public class CrearGrupoFXMLController implements Initializable {
             nuevoGrupo = new Grupo();
             nuevoGrupo.setCodigo(codgrupoTextField.toString());
             nuevoGrupo.setDescripcion(descTextArea.toString());
-            //nuevoGrupo.setDefaultTipoSesion(sesionTipoComboBox.getSelectionModel().getSelectedItem());
-            
+                        
         }
         
         

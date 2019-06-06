@@ -44,6 +44,14 @@ public class mainFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
+        { 
+            if(newVal == null){
+                modGrupo.setDisable(true);
+            }else{
+                modGrupo.setDisable(false);
+            
+        } });
 //        
     }    
 
