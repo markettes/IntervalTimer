@@ -3,9 +3,6 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
-<?import javafx.scene.chart.CategoryAxis?>
-<?import javafx.scene.chart.LineChart?>
-<?import javafx.scene.chart.NumberAxis?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -21,14 +18,6 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <LineChart layoutX="557.0" layoutY="159.0" prefHeight="402.0" prefWidth="656.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" tickLabelFill="WHITE" />
-        </yAxis>
-      </LineChart>
       <HBox layoutX="14.0" layoutY="389.0" prefHeight="285.0" prefWidth="502.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0">
          <children>
             <VBox prefHeight="286.0" prefWidth="234.0">
@@ -126,7 +115,7 @@
                         </ImageView>
                      </graphic>
                   </JFXButton>
-                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="36.0" prefWidth="164.0" ripplerFill="WHITE" text="  Mostrar Gráficas">
+                  <JFXButton fx:id="graphButton" buttonType="RAISED" disable="true" onAction="#graphAct" prefHeight="36.0" prefWidth="164.0" ripplerFill="WHITE" text="  Mostrar Gráficas">
                      <VBox.margin>
                         <Insets top="10.0" />
                      </VBox.margin>
