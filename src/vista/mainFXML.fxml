@@ -114,7 +114,7 @@
       </Label>
       <JFXProgressBar layoutX="662.0" layoutY="345.0" prefHeight="13.0" progress="1.0" rotate="180.0" style="-fx-background-color: #92D95F;" />
       <JFXProgressBar layoutX="862.0" layoutY="345.0" prefHeight="13.0" progress="1.0" style="-fx-background-color: red;" />
-      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="813.0" layoutY="391.0" prefHeight="98.0" prefWidth="98.0" style="-fx-background-color: #92D95F;" styleClass="multimedia">
+      <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="391.0" prefHeight="98.0" prefWidth="98.0" style="-fx-background-color: #92D95F;" styleClass="multimedia" text=" ">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -122,7 +122,7 @@
                </image></ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="713.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" wrapText="true">
+      <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="713.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" text=" " wrapText="true">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -130,7 +130,7 @@
                </image>
             </ImageView>
          </graphic></JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="913.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia">
+      <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="913.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" text=" ">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
@@ -138,7 +138,7 @@
                </image>
             </ImageView>
          </graphic></JFXButton>
-      <JFXButton buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="813.0" layoutY="565.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia">
+      <JFXButton buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="565.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" text=" ">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
