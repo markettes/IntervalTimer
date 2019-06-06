@@ -52,3 +52,16 @@ and open the template in the editor.
     -fx-text-inner-color: white;
     -fx-prompt-text-fill: white;
 }
+
+.multimedia{
+    -fx-background-radius: 50%;
+}
+
+.jfx-progress-bar > .track, .jfx-progress-bar > .bar {
+    -fx-background-radius: 0;
+    -fx-background-insets: 0;
+}
+
+.jfx-progress-bar > .bar {
+    -fx-background-color:  #92D95F;
+}

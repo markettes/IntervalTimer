@@ -107,12 +107,44 @@
             </VBox>
          </children>
       </HBox>
-      <Label layoutX="599.0" layoutY="191.0" text="00:00" textFill="WHITE">
+      <Label layoutX="599.0" layoutY="106.0" text="00:00" textFill="WHITE">
          <font>
             <Font name="Open Sans ExtraBold" size="200.0" />
          </font>
       </Label>
-      <JFXProgressBar layoutX="662.0" layoutY="430.0" prefHeight="13.0" progress="0.0" rotate="180.0" />
-      <JFXProgressBar layoutX="862.0" layoutY="430.0" prefHeight="13.0" progress="0.0" />
+      <JFXProgressBar layoutX="662.0" layoutY="345.0" prefHeight="13.0" progress="1.0" rotate="180.0" style="-fx-background-color: #92D95F;" />
+      <JFXProgressBar layoutX="862.0" layoutY="345.0" prefHeight="13.0" progress="1.0" style="-fx-background-color: red;" />
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="813.0" layoutY="391.0" prefHeight="98.0" prefWidth="98.0" style="-fx-background-color: #92D95F;" styleClass="multimedia">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/play.png" />
+               </image></ImageView>
+         </graphic>
+      </JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="713.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" wrapText="true">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/pause.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" layoutX="913.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/fast_forward.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
+      <JFXButton buttonType="RAISED" contentDisplay="CENTER" graphicTextGap="0.0" layoutX="813.0" layoutY="565.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia">
+         <graphic>
+            <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
+               <image>
+                  <Image url="@../images/skip_to_start.png" />
+               </image>
+            </ImageView>
+         </graphic></JFXButton>
    </children>
 </AnchorPane>
