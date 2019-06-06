@@ -1,6 +1,7 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
 <?import com.jfoenix.controls.JFXButton?>
+<?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
 <?import javafx.scene.chart.CategoryAxis?>
 <?import javafx.scene.chart.LineChart?>
@@ -20,9 +21,17 @@
             <Image url="@../images/background.jpg" />
          </image>
       </ImageView>
-      <HBox layoutX="15.0" layoutY="446.0" AnchorPane.bottomAnchor="15.0" AnchorPane.leftAnchor="15.0">
+      <LineChart layoutX="557.0" layoutY="159.0" prefHeight="402.0" prefWidth="656.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis side="LEFT" tickLabelFill="WHITE" />
+        </yAxis>
+      </LineChart>
+      <HBox layoutX="14.0" layoutY="389.0" prefHeight="285.0" prefWidth="502.0" AnchorPane.bottomAnchor="25.0" AnchorPane.leftAnchor="25.0">
          <children>
-            <VBox prefHeight="241.0" prefWidth="139.0">
+            <VBox prefHeight="286.0" prefWidth="234.0">
                <children>
                   <Label styleClass="margen" text="GRUPO" textFill="WHITE">
                      <font>
@@ -32,81 +41,103 @@
                         <Insets />
                      </VBox.margin>
                   </Label>
-                  <JFXButton fx:id="crearGrupo" buttonType="RAISED" onAction="#crearGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="73.0" prefWidth="270.0">
                      <VBox.margin>
                         <Insets top="15.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="modGrupo" buttonType="RAISED" disable="true" layoutX="10.0" layoutY="49.0" onAction="#modGrupoAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <Label styleClass="margen" text="SESIÓN" textFill="WHITE">
-                     <VBox.margin>
-                        <Insets top="30.0" />
-                     </VBox.margin>
-                  </Label>
-                  <JFXButton fx:id="crearSesion" buttonType="RAISED" onAction="#crearSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Crear">
-                     <VBox.margin>
-                        <Insets top="15.0" />
-                     </VBox.margin>
-                  </JFXButton>
-                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="30.0" prefWidth="137.0" ripplerFill="WHITE" text="Modificar">
-                     <VBox.margin>
-                        <Insets top="10.0" />
-                     </VBox.margin>
-                  </JFXButton>
-               </children>
-            </VBox>
-            <VBox prefHeight="258.0" prefWidth="271.0">
-               <children>
-                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
-                     <VBox.margin>
-                        <Insets top="40.0" />
                      </VBox.margin>
                      <children>
                         <ImageView id="grupoimg" fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets />
                            </HBox.margin>
                            <image>
                               <Image url="@../images/team.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="TOP_LEFT" contentDisplay="TOP" styleClass="gruposesion" text="Grupo X" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Bold" size="14.0" />
-                           </font>
+                        <JFXComboBox fx:id="grupoComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar grupo" styleClass="promts" unFocusColor="WHITE">
                            <HBox.margin>
-                              <Insets left="10.0" top="27.0" />
+                              <Insets left="10.0" top="26.0" />
                            </HBox.margin>
-                        </Label>
+                        </JFXComboBox>
                      </children>
                   </HBox>
-                  <HBox layoutX="10.0" layoutY="50.0" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
+                  <Label styleClass="margen" text="SESIÓN" textFill="WHITE">
+                     <VBox.margin>
+                        <Insets top="30.0" />
+                     </VBox.margin>
+                  </Label>
+                  <HBox maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="76.0" prefWidth="241.0">
                      <children>
                         <ImageView fitHeight="77.0" fitWidth="73.0" pickOnBounds="true" preserveRatio="true">
                            <HBox.margin>
-                              <Insets left="20.0" />
+                              <Insets />
                            </HBox.margin>
                            <image>
                               <Image url="@../images/stopwatch.png" />
                            </image>
                         </ImageView>
-                        <Label alignment="TOP_LEFT" contentDisplay="TOP" styleClass="gruposesion" text="Sesión HIIT" textFill="WHITE">
-                           <font>
-                              <Font name="Open Sans Bold" size="14.0" />
-                           </font>
+                        <JFXComboBox fx:id="sesionComboBox" focusColor="WHITE" prefHeight="25.0" prefWidth="162.0" promptText="Seleccionar sesión" styleClass="promts" unFocusColor="WHITE">
                            <HBox.margin>
-                              <Insets left="10.0" top="27.0" />
+                              <Insets left="10.0" top="26.0" />
                            </HBox.margin>
-                        </Label>
+                        </JFXComboBox>
                      </children>
+                     <VBox.margin>
+                        <Insets top="15.0" />
+                     </VBox.margin>
+                  </HBox>
+               </children>
+            </VBox>
+            <VBox prefHeight="286.0" prefWidth="248.0">
+               <children>
+                  <JFXButton fx:id="crearGrupo" buttonType="RAISED" onAction="#crearGrupoAct" prefHeight="36.0" prefWidth="93.0" ripplerFill="WHITE" text="  Crear">
+                     <VBox.margin>
+                        <Insets top="55.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/rounded-add-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="modGrupo" buttonType="RAISED" disable="true" onAction="#modGrupoAct" prefHeight="36.0" prefWidth="119.0" ripplerFill="WHITE" text="  Modificar">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/edit.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="crearSesion" buttonType="RAISED" onAction="#crearSesionAct" prefHeight="36.0" prefWidth="93.0" ripplerFill="WHITE" text="  Crear">
                      <VBox.margin>
                         <Insets top="65.0" />
                      </VBox.margin>
-                  </HBox>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/rounded-add-button.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
+                  <JFXButton fx:id="modSesion" buttonType="RAISED" disable="true" onAction="#modSesionAct" prefHeight="36.0" prefWidth="164.0" ripplerFill="WHITE" text="  Mostrar Gráficas">
+                     <VBox.margin>
+                        <Insets top="10.0" />
+                     </VBox.margin>
+                     <graphic>
+                        <ImageView fitHeight="20.0" fitWidth="20.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../images/bar-chart.png" />
+                           </image>
+                        </ImageView>
+                     </graphic>
+                  </JFXButton>
                </children>
                <HBox.margin>
                   <Insets left="20.0" />
@@ -114,13 +145,5 @@
             </VBox>
          </children>
       </HBox>
-      <LineChart layoutX="557.0" layoutY="159.0" prefHeight="402.0" prefWidth="656.0">
-        <xAxis>
-          <CategoryAxis side="BOTTOM" />
-        </xAxis>
-        <yAxis>
-          <NumberAxis side="LEFT" tickLabelFill="WHITE" />
-        </yAxis>
-      </LineChart>
    </children>
 </AnchorPane>
