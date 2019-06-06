@@ -51,46 +51,39 @@ public class mainFXMLController implements Initializable {
     ArrayList<Grupo> gruposArrayList;
     static boolean modificarpressed;
     static Grupo grupoActual;
-    
+
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        sesionComboBox.setPromptText("Seleccione 1º un grupo");
+        modGrupo.setDisable(true);
+        sesionComboBox.setDisable(true);
+        
         gruposArrayList = database.getGym().getGrupos();
-        
         gruposObs = FXCollections.observableList(gruposArrayList);
-         for(int i = 0; i < gruposObs.size(); i++){
-            grupoComboBox.getItems().addAll("Grupo " + gruposObs.get(i).getCodigo());
+        for (int i = 0; i < gruposObs.size(); i++) {
+            grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-        
-        
-        grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
-        { 
-            
-                if(grupoComboBox.getSelectionModel().getSelectedIndex() > -1){
+
+        grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > 0 ) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
-                
-            }
-            
-            if(newVal == null){
-                modGrupo.setDisable(true);
-            }else{
                 modGrupo.setDisable(false);
+                sesionComboBox.setDisable(false);
+                sesionComboBox.setPromptText("Seleccione sesión");
             }
-            
-            
-                  
-            
+
         });
-      
-       
-    }    
+
+    }
 
     @FXML
     private void crearGrupoAct(ActionEvent event) throws IOException {
         modificarpressed = false;
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
-        
+
     }
 
     @FXML
@@ -99,7 +92,7 @@ public class mainFXMLController implements Initializable {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
     }
-   
+
     @FXML
     private void crearSesionAct(ActionEvent event) {
         //TODO
@@ -109,5 +102,5 @@ public class mainFXMLController implements Initializable {
     private void modSesionAct(ActionEvent event) {
         //TODO
     }
-    
+
 }
