@@ -73,7 +73,7 @@ public class mainFXMLController implements Initializable {
             
         } });
       
-//        
+       
     }    
 
     @FXML
@@ -84,14 +84,17 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void modGrupoAct(ActionEvent event) {
+        //TODO
     }
 
     @FXML
     private void crearSesionAct(ActionEvent event) {
+        //TODO
     }
 
     @FXML
     private void modSesionAct(ActionEvent event) {
+        //TODO
     }
     
 }
