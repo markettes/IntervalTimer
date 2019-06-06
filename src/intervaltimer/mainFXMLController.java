@@ -97,8 +97,10 @@ public class mainFXMLController implements Initializable {
     }
 
     @FXML
-    private void crearSesionAct(ActionEvent event) {
+    private void crearSesionAct(ActionEvent event) throws IOException {
         //TODO
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearSesionFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
     }
 
     @FXML
