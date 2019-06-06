@@ -10,7 +10,9 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import java.io.IOException;
 import java.net.URL;
+import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
@@ -18,6 +20,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
@@ -57,18 +60,31 @@ public class CrearGrupoFXMLController implements Initializable {
     Grupo nuevoGrupo;
     AccesoBD database = AccesoBD.getInstance();
     Gym gimnasio = database.getGym();
+    ObservableList<Grupo> gruposObs;
+    ArrayList<Grupo> gruposArrayList;
+    
     
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+        gruposArrayList = database.getGym().getGrupos();
+        
+        gruposObs = FXCollections.observableList(gruposArrayList);
+         for(int i = 0; i < gruposObs.size(); i++){
+            grupoComboBox.getItems().addAll("Grupo " + gruposObs.get(i).getCodigo());
+        }
+        
+        
         grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
         { 
             if(newVal == null){
                 modGrupo.setDisable(true);
             }else{
+                
                 modGrupo.setDisable(false);
+                
                
             
         } });
@@ -100,7 +116,7 @@ public class CrearGrupoFXMLController implements Initializable {
     }
 
     @FXML
-    private void guardarGrupoAct(ActionEvent event) {
+    private void guardarGrupoAct(ActionEvent event) throws IOException {
         if(codgrupoTextField.getText() == null || codgrupoTextField.getText().trim().isEmpty()){
             Alert alertCodeGroup = new Alert(Alert.AlertType.ERROR);
             alertCodeGroup.setTitle("Faltan datos");
@@ -115,16 +131,24 @@ public class CrearGrupoFXMLController implements Initializable {
             alertDescGroup.showAndWait();
         }else{
             nuevoGrupo = new Grupo();
-            nuevoGrupo.setCodigo(codgrupoTextField.toString());
-            nuevoGrupo.setDescripcion(descTextArea.toString());
-                        
+            nuevoGrupo.setCodigo(codgrupoTextField.getText());
+            nuevoGrupo.setDescripcion(descTextArea.getText());
+            
+            gruposArrayList.add(nuevoGrupo);
+            
+            gimnasio.setGrupos(database.getGym().getGrupos());
+            database.salvar();
+            AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
+            anchorPane.getChildren().setAll(pane);
         }
         
         
     }
 
     @FXML
-    private void volverGrupoAct(ActionEvent event) {
+    private void volverGrupoAct(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
     }
     
 }

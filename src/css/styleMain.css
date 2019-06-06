@@ -18,10 +18,15 @@ and open the template in the editor.
 }
 
 .margen{
-    -fx-font: 20px "Open Sans Bold";
-    
+    -fx-font: 20px "Open Sans ExtraBold";
+  
 }
 
+
+.mostrargrafica{
+    
+    
+}
 
 
 .gruposesion{
