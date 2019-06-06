@@ -22,7 +22,7 @@ public class IntervalTimer extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
         
         Scene scene = new Scene(root);
-        Application.setUserAgentStylesheet(getClass().getResource("/css/styleMain.css").toExternalForm());
+        
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
