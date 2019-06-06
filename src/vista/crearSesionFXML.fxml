@@ -2,6 +2,7 @@
 
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
+<?import com.jfoenix.controls.JFXSlider?>
 <?import com.jfoenix.controls.JFXTextArea?>
 <?import com.jfoenix.controls.JFXTextField?>
 <?import javafx.geometry.Insets?>
@@ -139,10 +140,12 @@
             </VBox>
          </children>
       </HBox>
-      <GridPane layoutX="640.0" layoutY="104.0" prefHeight="563.0" prefWidth="467.0" AnchorPane.rightAnchor="173.0" AnchorPane.topAnchor="104.0">
+      <GridPane layoutX="533.0" layoutY="22.0" prefHeight="673.0" prefWidth="741.0" AnchorPane.rightAnchor="31.0" AnchorPane.topAnchor="22.0">
         <columnConstraints>
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="98.0" />
-          <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="369.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="229.0" minWidth="10.0" prefWidth="115.0" />
+          <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="214.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="178.0" />
+            <ColumnConstraints hgrow="SOMETIMES" maxWidth="393.0" minWidth="10.0" prefWidth="288.0" />
         </columnConstraints>
         <rowConstraints>
             <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
@@ -153,7 +156,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label styleClass="margen" text="CREAR GRUPO" textFill="WHITE" GridPane.columnSpan="2" />
+            <Label styleClass="margen" text="CREAR SESIÓN" textFill="WHITE" GridPane.columnIndex="3" GridPane.halignment="RIGHT" />
             <Label alignment="CENTER_RIGHT" text="Código" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <font>
                   <Font name="Open Sans Regular" size="15.0" />
@@ -162,7 +165,7 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextField fx:id="codgrupoTextField" focusColor="#8fe872" prefHeight="25.0" prefWidth="329.0" promptText="Indica el código del grupo" style="-fx-prompt-text-fill: white;" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1">
+            <JFXTextField fx:id="codgrupoTextField" focusColor="#8fe872" prefHeight="25.0" prefWidth="0.0" promptText="Indica el código del grupo" style="-fx-prompt-text-fill: white;" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="1" GridPane.valignment="CENTER">
                <GridPane.margin>
                   <Insets left="20.0" />
                </GridPane.margin>
@@ -178,16 +181,61 @@
                   <Insets right="10.0" />
                </GridPane.margin>
             </Label>
-            <JFXTextArea fx:id="descTextArea" focusColor="#8fe872" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="55.0" prefWidth="349.0" promptText="Escribe aquí una descripción para el grupo" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.rowIndex="2">
+            <JFXTextArea fx:id="descTextArea" focusColor="#8fe872" maxHeight="-Infinity" maxWidth="-Infinity" prefHeight="70.0" prefWidth="349.0" promptText="Escribe aquí una descripción para el grupo" styleClass="promts" unFocusColor="WHITE" GridPane.columnIndex="1" GridPane.halignment="CENTER" GridPane.rowIndex="2">
                <GridPane.margin>
-                  <Insets left="20.0" top="26.0" />
+                  <Insets left="20.0" />
                </GridPane.margin>
                <font>
                   <Font name="Open Sans Regular" size="12.0" />
                </font>
             </JFXTextArea>
-            <JFXButton id="guardargrupo" buttonType="RAISED" onAction="#guardarGrupoAct" prefHeight="30.0" prefWidth="206.0" text="Guardar" GridPane.columnIndex="1" GridPane.halignment="RIGHT" GridPane.rowIndex="4" />
-            <JFXButton buttonType="RAISED" onAction="#volverGrupoAct" prefHeight="30.0" prefWidth="126.0" text="Volver" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+            <JFXButton id="guardargrupo" buttonType="RAISED" onAction="#guardarGrupoAct" prefHeight="30.0" prefWidth="206.0" text="Guardar" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5" />
+            <JFXButton buttonType="RAISED" onAction="#volverGrupoAct" prefHeight="30.0" prefWidth="126.0" text="Volver" GridPane.columnIndex="1" GridPane.columnSpan="2" GridPane.halignment="RIGHT" GridPane.rowIndex="5">
+               <GridPane.margin>
+                  <Insets right="250.0" />
+               </GridPane.margin></JFXButton>
+            <Label alignment="CENTER_RIGHT" text="Numero de" textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font>
+               <padding>
+                  <Insets bottom="15.0" />
+               </padding>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="ejercicios" textFill="WHITE" GridPane.rowIndex="3">
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXSlider blockIncrement="1.0" max="15.0" min="1.0" value="1.0" GridPane.columnIndex="1" GridPane.rowIndex="3">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </JFXSlider>
+            <Label alignment="CENTER_RIGHT" text="Tiempo de" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets bottom="15.0" />
+               </GridPane.margin>
+            </Label>
+            <Label alignment="CENTER_RIGHT" text="descanso (s)" textFill="WHITE" GridPane.rowIndex="4">
+               <font>
+                  <Font name="Open Sans Regular" size="15.0" />
+               </font>
+               <GridPane.margin>
+                  <Insets top="15.0" />
+               </GridPane.margin>
+            </Label>
+            <JFXSlider blockIncrement="2.0" max="120.0" value="5.0" GridPane.columnIndex="1" GridPane.rowIndex="4">
+               <GridPane.margin>
+                  <Insets left="20.0" />
+               </GridPane.margin>
+            </JFXSlider>
          </children>
       </GridPane>
    </children>

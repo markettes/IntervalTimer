@@ -82,7 +82,7 @@ public class mainFXMLController implements Initializable {
             
         });
       
-//        
+       
     }    
 
     @FXML
@@ -98,15 +98,16 @@ public class mainFXMLController implements Initializable {
         modificarpressed = true;
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
-        
     }
-
+   
     @FXML
     private void crearSesionAct(ActionEvent event) {
+        //TODO
     }
 
     @FXML
     private void modSesionAct(ActionEvent event) {
+        //TODO
     }
     
 }
