@@ -100,7 +100,7 @@ public class CrearGrupoFXMLController implements Initializable {
         } else {
             crearmodificargrupolabel.setText("Crear Grupo");
             for (int i = 0; i < gruposObs.size(); i++) {
-                grupoComboBox.getItems().addAll("Grupo " + gruposObs.get(i).getCodigo());
+                grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
             }
 
         }
