@@ -49,6 +49,8 @@ public class mainFXMLController implements Initializable {
     Gym gimnasio = database.getGym();
     ObservableList<Grupo> gruposObs;
     ArrayList<Grupo> gruposArrayList;
+    static boolean modificarpressed;
+    static Grupo grupoActual;
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -63,27 +65,40 @@ public class mainFXMLController implements Initializable {
         
         grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
         { 
+            
+                if(grupoComboBox.getSelectionModel().getSelectedIndex() > -1){
+                grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
+                
+            }
+            
             if(newVal == null){
                 modGrupo.setDisable(true);
             }else{
-                
                 modGrupo.setDisable(false);
-                
-               
+            }
             
-        } });
+            
+                  
+            
+        });
       
 //        
     }    
 
     @FXML
     private void crearGrupoAct(ActionEvent event) throws IOException {
+        modificarpressed = false;
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
+        
     }
 
     @FXML
-    private void modGrupoAct(ActionEvent event) {
+    private void modGrupoAct(ActionEvent event) throws IOException {
+        modificarpressed = true;
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
+        
     }
 
     @FXML

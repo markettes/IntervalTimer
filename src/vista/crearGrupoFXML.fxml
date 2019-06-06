@@ -153,7 +153,7 @@
           <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
         </rowConstraints>
          <children>
-            <Label styleClass="margen" text="CREAR GRUPO" textFill="WHITE" GridPane.columnSpan="2" />
+            <Label fx:id="crearmodificargrupolabel" styleClass="margen" text="CREAR GRUPO" textFill="WHITE" GridPane.columnSpan="2" />
             <Label alignment="CENTER_RIGHT" text="Código" textFill="WHITE" GridPane.halignment="LEFT" GridPane.rowIndex="1">
                <font>
                   <Font name="Open Sans Regular" size="15.0" />

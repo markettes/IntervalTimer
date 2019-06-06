@@ -10,6 +10,8 @@ import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
+import static intervaltimer.mainFXMLController.grupoActual;
+import static intervaltimer.mainFXMLController.modificarpressed;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -23,6 +25,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
@@ -60,7 +63,9 @@ public class CrearGrupoFXMLController implements Initializable {
     Gym gimnasio = database.getGym();
     ObservableList<Grupo> gruposObs;
     ArrayList<Grupo> gruposArrayList;
-    static Grupo grupoActual;
+    @FXML
+    private Label crearmodificargrupolabel;
+    
     
     
     /**
@@ -69,31 +74,32 @@ public class CrearGrupoFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         gruposArrayList = database.getGym().getGrupos();
-        
         gruposObs = FXCollections.observableList(gruposArrayList);
-         for(int i = 0; i < gruposObs.size(); i++){
+        grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->{ 
+                if(newVal == null){
+                    modGrupo.setDisable(true);
+                }else{
+                    modGrupo.setDisable(false);
+        } });
+        
+        if(modificarpressed == true){
+            crearmodificargrupolabel.setText("Modificar Grupo");
+            codgrupoTextField.setText(mainFXMLController.grupoActual.getCodigo());
+            descTextArea.setText(mainFXMLController.grupoActual.getDescripcion());
+            
+            for(int i = 0; i < gruposObs.size(); i++){
+            grupoComboBox.getItems().addAll("Grupo " + gruposObs.get(i).getCodigo());
+        }
+            
+        }else{
+            crearmodificargrupolabel.setText("Crear Grupo");            
+            for(int i = 0; i < gruposObs.size(); i++){
             grupoComboBox.getItems().addAll("Grupo " + gruposObs.get(i).getCodigo());
         }
         
-        
-        grupoComboBox.valueProperty().addListener((observable, oldVal, newVal) ->
-        { 
-            
-            if(newVal == null){
-                modGrupo.setDisable(true);
-            }else{
-                
-                modGrupo.setDisable(false);
-                
-               
-            
-        } });
-        
-        
-        
+                   
+        }
 
-        
-        
     }    
 
     @FXML
@@ -104,8 +110,16 @@ public class CrearGrupoFXMLController implements Initializable {
 
     @FXML
     private void modGrupoAct(ActionEvent event) throws IOException {
-        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/modifGrupoFXML.fxml"));
+        if(modificarpressed == true){
+            grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
+            codgrupoTextField.setText(mainFXMLController.grupoActual.getCodigo());
+            descTextArea.setText(mainFXMLController.grupoActual.getDescripcion());
+        }else{
+        modificarpressed = true;
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/CrearGrupoGrupoFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
+        }
+        
     }
 
     @FXML
