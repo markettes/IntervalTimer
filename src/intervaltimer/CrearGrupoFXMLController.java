@@ -5,18 +5,24 @@
  */
 package intervaltimer;
 
+import accesoBD.AccesoBD;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
 import com.jfoenix.controls.JFXTextArea;
 import com.jfoenix.controls.JFXTextField;
 import java.net.URL;
 import java.util.ResourceBundle;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
+import modelo.Gym;
+import modelo.Sesion;
+import modelo.SesionTipo;
 
 /**
  * FXML Controller class
@@ -36,20 +42,29 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private JFXButton modSesion;
     @FXML
-    private JFXComboBox<?> grupoComboBox;
+    private JFXComboBox<String> grupoComboBox;
     @FXML
     private JFXComboBox<?> sesionComboBox;
     @FXML
     private JFXTextField codgrupoTextField;
     @FXML
     private JFXTextArea descTextArea;
+    @FXML
+    private JFXComboBox<String> sesionTipoComboBox;
     Grupo nuevoGrupo;
+    AccesoBD database = AccesoBD.getInstance();
+    Gym gimnasio = database.getGym();
+    
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        ObservableList<SesionTipo> tipoSesiones = FXCollections.observableList(gimnasio.getTiposSesion());
+       
+        for(int i = 0; i < tipoSesiones.size(); i++){
+            sesionTipoComboBox.getItems().addAll("Sesion Tipo " + tipoSesiones.get(i).getCodigo());
+        }
     }    
 
     @FXML
@@ -88,7 +103,8 @@ public class CrearGrupoFXMLController implements Initializable {
             nuevoGrupo = new Grupo();
             nuevoGrupo.setCodigo(codgrupoTextField.toString());
             nuevoGrupo.setDescripcion(descTextArea.toString());
-            //nuevoGrupo.setDefaultTipoSesion();
+            //nuevoGrupo.setDefaultTipoSesion(sesionTipoComboBox.getSelectionModel().getSelectedItem());
+            
         }
         
         
