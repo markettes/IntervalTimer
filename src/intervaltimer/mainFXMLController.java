@@ -23,6 +23,7 @@ import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
 import modelo.Sesion;
+import modelo.SesionTipo;
 
 /**
  *
@@ -41,7 +42,7 @@ public class mainFXMLController implements Initializable {
     @FXML
     private JFXComboBox<String> grupoComboBox;
     @FXML
-    private JFXComboBox<Sesion> sesionComboBox; //O tipo SesiónTipo
+    private JFXComboBox<String> sesionComboBox; //O tipo SesiónTipo
     Grupo nuevoGrupo;
     AccesoBD database = AccesoBD.getInstance();
     Gym gimnasio = database.getGym();
@@ -51,20 +52,47 @@ public class mainFXMLController implements Initializable {
     static Grupo grupoActual;
     @FXML
     private JFXButton graphButton;
+    ArrayList<SesionTipo> sesionesArrayList;
+    ObservableList<SesionTipo> sesionesObs;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+       
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
         
-        gruposArrayList = database.getGym().getGrupos();
+        gruposArrayList = gimnasio.getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
+        
+        sesionesArrayList = gimnasio.getTiposSesion();
+        sesionesObs = FXCollections.observableList(sesionesArrayList);
+        
+        for (int i = 0; i < sesionesObs.size(); i++) {
+            sesionComboBox.getItems().addAll(sesionesObs.get(i).getCodigo());
+        }
+        
+        
+        
+        grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
+                grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
+                modGrupo.setDisable(false);
+                sesionComboBox.setDisable(false);
+                graphButton.setDisable(false);
+                
+                sesionComboBox.setPromptText("Seleccione sesión");
+            }
+
+        });
+        
+        
 
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
@@ -109,5 +137,8 @@ public class mainFXMLController implements Initializable {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/statsFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
     }
-
+    
+    public void iniciar(){
+        
+    }
 }

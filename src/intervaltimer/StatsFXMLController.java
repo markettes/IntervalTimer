@@ -23,6 +23,7 @@ import javafx.fxml.Initializable;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
+import modelo.SesionTipo;
 
 /**
  * FXML Controller class
@@ -50,6 +51,8 @@ public class StatsFXMLController implements Initializable {
     ArrayList<Grupo> gruposArrayList;
     @FXML
     private JFXButton graphButton;
+    ArrayList<SesionTipo> sesionesArrayList;
+    ObservableList<SesionTipo> sesionesObs;
     /**
      * Initializes the controller class.
      */
@@ -66,7 +69,7 @@ public class StatsFXMLController implements Initializable {
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-
+        
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {

@@ -50,7 +50,7 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private JFXComboBox<String> grupoComboBox;
     @FXML
-    private JFXComboBox<Sesion> sesionComboBox;
+    private JFXComboBox<SesionTipo> sesionComboBox;
     @FXML
     private JFXTextField codgrupoTextField;
     @FXML
@@ -64,6 +64,8 @@ public class CrearGrupoFXMLController implements Initializable {
     private Label crearmodificargrupolabel;
     @FXML
     private JFXButton graphButton;
+    ArrayList<SesionTipo> sesionesArrayList;
+    ObservableList<SesionTipo> sesionesObs;
 
     /**
      * Initializes the controller class.
@@ -77,7 +79,9 @@ public class CrearGrupoFXMLController implements Initializable {
 
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
-
+        
+        
+        
         grupoComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 sesionComboBox.setDisable(false);
