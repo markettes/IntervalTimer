@@ -61,9 +61,9 @@ public class mainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
        
-        
+        sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
-       
+        sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
         
         gruposArrayList = gimnasio.getGrupos();
@@ -86,10 +86,10 @@ public class mainFXMLController implements Initializable {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
-                
+                sesionComboBox.setDisable(false);
                 graphButton.setDisable(false);
                 
-                
+                sesionComboBox.setPromptText("Seleccione sesión");
             }
 
         });
