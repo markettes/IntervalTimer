@@ -50,7 +50,7 @@ public class CrearGrupoFXMLController implements Initializable {
     @FXML
     private JFXComboBox<String> grupoComboBox;
     @FXML
-    private JFXComboBox<SesionTipo> sesionComboBox;
+    private JFXComboBox<String> sesionComboBox;
     @FXML
     private JFXTextField codgrupoTextField;
     @FXML
@@ -80,7 +80,8 @@ public class CrearGrupoFXMLController implements Initializable {
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
         
-        
+        //Llamada a actSesiones
+        IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
         
         grupoComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {

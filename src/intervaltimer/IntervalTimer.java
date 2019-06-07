@@ -5,16 +5,19 @@
  */
 package intervaltimer;
 
+import accesoBD.AccesoBD;
+import com.jfoenix.controls.JFXComboBox;
+import java.util.ArrayList;
 import javafx.application.Application;
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
+import modelo.Gym;
+import modelo.SesionTipo;
 
-/**
- *
- * @author Marcos
- */
 public class IntervalTimer extends Application {
     
     @Override
@@ -35,4 +38,20 @@ public class IntervalTimer extends Application {
         launch(args);
     }
     
+    
+    /*Metodo para actualizar lista de sesiones
+    Entrada:    - sesionesArrayList
+                - gimnasio
+                - comboBox
+                - sesionesObs
+    */
+    
+    public static void actualizarSesiones(ArrayList<SesionTipo> sesionesArrayList, Gym gimnasio, JFXComboBox<String> sesionComboBox, ObservableList<SesionTipo> sesionesObs){
+        sesionesArrayList = gimnasio.getTiposSesion();
+        sesionesObs = FXCollections.observableList(sesionesArrayList);
+        
+        for (int i = 0; i < sesionesObs.size(); i++) {
+            sesionComboBox.getItems().addAll(sesionesObs.get(i).getCodigo());
+        }
+    }
 }
