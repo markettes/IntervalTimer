@@ -138,7 +138,7 @@
             </VBox>
          </children>
       </HBox>
-      <LineChart fx:id="linechart" layoutX="647.0" layoutY="79.0">
+      <LineChart fx:id="linechart" layoutX="583.0" layoutY="60.0" prefHeight="402.0" prefWidth="664.0">
         <xAxis>
           <CategoryAxis side="BOTTOM" fx:id="xAxis" />
         </xAxis>
@@ -146,27 +146,30 @@
           <NumberAxis fx:id="yAxis" side="LEFT" />
         </yAxis>
       </LineChart>
-      <HBox layoutX="540.0" layoutY="503.0" prefHeight="100.0" prefWidth="713.0">
+      <HBox layoutX="632.0" layoutY="503.0" prefHeight="100.0" prefWidth="615.0">
          <children>
             <CheckBox mnemonicParsing="false" text="Tiempo de trabajo" textFill="WHITE">
                <font>
-                  <Font name="Open Sans SemiBold" size="12.0" />
+                  <Font name="Open Sans SemiBold" size="14.0" />
                </font>
+               <HBox.margin>
+                  <Insets left="50.0" />
+               </HBox.margin>
             </CheckBox>
             <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Tiempo de descanso" textFill="WHITE">
                <font>
-                  <Font name="Open Sans SemiBold" size="12.0" />
+                  <Font name="Open Sans SemiBold" size="14.0" />
                </font>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
             </CheckBox>
-            <CheckBox layoutX="137.0" layoutY="10.0" mnemonicParsing="false" text="Tiempo real" textFill="#cd0e0e">
+            <CheckBox layoutX="137.0" layoutY="10.0" mnemonicParsing="false" text="Tiempo real" textFill="WHITE">
                <font>
-                  <Font name="Open Sans SemiBold" size="12.0" />
+                  <Font name="Open Sans SemiBold" size="14.0" />
                </font>
                <HBox.margin>
-                  <Insets left="20.0" />
+                  <Insets left="50.0" />
                </HBox.margin>
             </CheckBox>
          </children>
