@@ -181,5 +181,10 @@
             <Font name="Open Sans SemiBold" size="53.0" />
          </font>
       </Label>
+      <Label fx:id="ejercLabel" layoutX="714.0" layoutY="37.0" text="EJERCICIO" textFill="WHITE">
+         <font>
+            <Font name="Open Sans ExtraBold" size="60.0" />
+         </font>
+      </Label>
    </children>
 </AnchorPane>

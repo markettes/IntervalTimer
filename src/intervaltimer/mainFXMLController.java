@@ -12,6 +12,8 @@ import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.binding.Bindings;
+import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.event.ActionEvent;
@@ -70,48 +72,69 @@ public class mainFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
-       //Ningún grupo seleccionado de base
+        //CRONOMETRO
+        
+        servicio = new CronoService();
+        servicio.setTiempo(cronoText.textProperty());
+        butStop.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
+        butStart.disableProperty().bind(iniciado);
+        butReset.disableProperty().bind(iniciado);
+        coundown.disableProperty().bind(iniciado);
+
+        //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
-        
+        //Botones multimedia
+        startButton.setDisable(true);
+        pauseButton.setDisable(true);
+        nextButton.setDisable(true);
+        resetButton.setDisable(true);
+
         gruposArrayList = gimnasio.getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-        
+
         //Llamada a actualizar sesiones
         IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
-        
-        
+
         //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
                 sesionComboBox.setDisable(false);
                 graphButton.setDisable(false);
-                
+
                 sesionComboBox.setPromptText("Seleccione sesión");
             }
 
         });
-        
-        
+
         //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
                 sesionComboBox.setDisable(false);
                 graphButton.setDisable(false);
-                
+
                 sesionComboBox.setPromptText("Seleccione sesión");
             }
+
+            sesionComboBox.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> {
+                if (sesionComboBox.getSelectionModel().getSelectedIndex() > -1) {
+                    startButton.setDisable(false);
+                    pauseButton.setDisable(false);
+                    nextButton.setDisable(false);
+                    resetButton.setDisable(false);
+                }
+            });
 
         });
 
@@ -148,6 +171,8 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
+        
+        
     }
 
     @FXML
@@ -165,6 +190,5 @@ public class mainFXMLController implements Initializable {
     @FXML
     private void pauseAct(ActionEvent event) {
     }
-    
-    
+
 }
