@@ -13,6 +13,8 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.beans.binding.Bindings;
+import javafx.beans.property.Property;
+import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -57,7 +59,7 @@ public class mainFXMLController implements Initializable {
     ArrayList<SesionTipo> sesionesArrayList;
     ObservableList<SesionTipo> sesionesObs;
     @FXML
-    private Label timelabel;
+    private Label timeLabel;
     @FXML
     private JFXButton startButton;
     @FXML
@@ -68,18 +70,21 @@ public class mainFXMLController implements Initializable {
     private JFXButton resetButton;
     @FXML
     private Label circuitNumber;
+    
+    private CronoService servicio;
+    private Property<Boolean> iniciado = new SimpleBooleanProperty(false);
+    private boolean firstime;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         
         //CRONOMETRO
-        
         servicio = new CronoService();
-        servicio.setTiempo(cronoText.textProperty());
-        butStop.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        butStart.disableProperty().bind(iniciado);
-        butReset.disableProperty().bind(iniciado);
-        coundown.disableProperty().bind(iniciado);
+        servicio.setTiempo(timeLabel.textProperty());
+        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
+        startButton.disableProperty().bind(iniciado);
+        resetButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);
 
         //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
@@ -171,12 +176,15 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
-        
-        
+        servicio.start();
+        iniciado.setValue(true);
     }
 
     @FXML
     private void pauseAct(MouseEvent event) {
+        servicio.cancel();
+        servicio.reset();
+        iniciado.setValue(false);
     }
 
     @FXML
@@ -185,6 +193,9 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void resetAct(ActionEvent event) {
+        servicio.restaurarInicio();
+        firstime = true;
+        timeLabel.setText("00:00:00");
     }
 
     @FXML
