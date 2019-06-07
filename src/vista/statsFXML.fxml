@@ -3,6 +3,10 @@
 <?import com.jfoenix.controls.JFXButton?>
 <?import com.jfoenix.controls.JFXComboBox?>
 <?import javafx.geometry.Insets?>
+<?import javafx.scene.chart.CategoryAxis?>
+<?import javafx.scene.chart.LineChart?>
+<?import javafx.scene.chart.NumberAxis?>
+<?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
@@ -132,6 +136,39 @@
                   <Insets left="20.0" />
                </HBox.margin>
             </VBox>
+         </children>
+      </HBox>
+      <LineChart fx:id="linechart" layoutX="647.0" layoutY="79.0">
+        <xAxis>
+          <CategoryAxis side="BOTTOM" fx:id="xAxis" />
+        </xAxis>
+        <yAxis>
+          <NumberAxis fx:id="yAxis" side="LEFT" />
+        </yAxis>
+      </LineChart>
+      <HBox layoutX="540.0" layoutY="503.0" prefHeight="100.0" prefWidth="713.0">
+         <children>
+            <CheckBox mnemonicParsing="false" text="Tiempo de trabajo" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans SemiBold" size="12.0" />
+               </font>
+            </CheckBox>
+            <CheckBox layoutX="10.0" layoutY="10.0" mnemonicParsing="false" text="Tiempo de descanso" textFill="WHITE">
+               <font>
+                  <Font name="Open Sans SemiBold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </CheckBox>
+            <CheckBox layoutX="137.0" layoutY="10.0" mnemonicParsing="false" text="Tiempo real" textFill="#cd0e0e">
+               <font>
+                  <Font name="Open Sans SemiBold" size="12.0" />
+               </font>
+               <HBox.margin>
+                  <Insets left="20.0" />
+               </HBox.margin>
+            </CheckBox>
          </children>
       </HBox>
    </children>

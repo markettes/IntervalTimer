@@ -20,6 +20,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.chart.CategoryAxis;
+import javafx.scene.chart.LineChart;
+import javafx.scene.chart.NumberAxis;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
@@ -53,12 +56,20 @@ public class StatsFXMLController implements Initializable {
     private JFXButton graphButton;
     ArrayList<SesionTipo> sesionesArrayList;
     ObservableList<SesionTipo> sesionesObs;
+    @FXML
+    private LineChart<?, ?> linechart;
+    @FXML
+    private NumberAxis yAxis;
+    @FXML
+    private CategoryAxis xAxis;
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        
+        
         
         //Llamada a actSesiones
         IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
