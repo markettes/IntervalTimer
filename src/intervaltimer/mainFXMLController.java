@@ -18,11 +18,9 @@ import javafx.event.ActionEvent;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.control.Label;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
-import modelo.Sesion;
 import modelo.SesionTipo;
 
 /**
@@ -57,8 +55,8 @@ public class mainFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        // TODO
-       
+        
+       //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
@@ -70,15 +68,11 @@ public class mainFXMLController implements Initializable {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
         
-        sesionesArrayList = gimnasio.getTiposSesion();
-        sesionesObs = FXCollections.observableList(sesionesArrayList);
-        
-        for (int i = 0; i < sesionesObs.size(); i++) {
-            sesionComboBox.getItems().addAll(sesionesObs.get(i).getCodigo());
-        }
+        //Llamada a actualizar sesiones
+        IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
         
         
-        
+        //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
@@ -93,7 +87,7 @@ public class mainFXMLController implements Initializable {
         });
         
         
-
+        //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
