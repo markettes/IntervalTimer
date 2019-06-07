@@ -54,6 +54,8 @@ public class mainFXMLController implements Initializable {
     private JFXButton graphButton;
     ArrayList<SesionTipo> sesionesArrayList;
     ObservableList<SesionTipo> sesionesObs;
+    @FXML
+    private Label timelabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
