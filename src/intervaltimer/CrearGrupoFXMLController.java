@@ -72,9 +72,8 @@ public class CrearGrupoFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        sesionComboBox.setPromptText("Seleccione 1º un grupo");
+        
         modGrupo.setDisable(true);
-        sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
 
         gruposArrayList = database.getGym().getGrupos();
@@ -84,10 +83,10 @@ public class CrearGrupoFXMLController implements Initializable {
         
         grupoComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
-                sesionComboBox.setDisable(false);
+                
                 modGrupo.setDisable(false);
                 graphButton.setDisable(false);
-                sesionComboBox.setPromptText("Seleccione sesión");
+                
 
             }
         });

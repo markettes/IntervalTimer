@@ -53,36 +53,35 @@ public class StatsFXMLController implements Initializable {
     private JFXButton graphButton;
     ArrayList<SesionTipo> sesionesArrayList;
     ObservableList<SesionTipo> sesionesObs;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        sesionComboBox.setPromptText("Seleccione 1º un grupo");
+
         modGrupo.setDisable(true);
-        sesionComboBox.setDisable(true);
+
         graphButton.setDisable(true);
-        
+
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-        
+
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
-                sesionComboBox.setDisable(false);
                 graphButton.setDisable(false);
-                
-                sesionComboBox.setPromptText("Seleccione sesión");
+
             }
 
         });
-        
+
     }
 
     @FXML
@@ -94,10 +93,10 @@ public class StatsFXMLController implements Initializable {
 
     @FXML
     private void modGrupoAct(ActionEvent event) throws IOException {
-            modificarpressed = true;
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
-            anchorPane.getChildren().setAll(pane);
-        
+        modificarpressed = true;
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
+
     }
 
     @FXML
@@ -106,7 +105,6 @@ public class StatsFXMLController implements Initializable {
 
     @FXML
     private void graphAct(ActionEvent event) {
-        
+
     }
 }
-    
