@@ -135,7 +135,5 @@ public class mainFXMLController implements Initializable {
         anchorPane.getChildren().setAll(pane);
     }
     
-    public void iniciar(){
-        
-    }
+    
 }

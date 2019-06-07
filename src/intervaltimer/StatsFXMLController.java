@@ -23,9 +23,12 @@ import javafx.fxml.Initializable;
 import javafx.scene.chart.CategoryAxis;
 import javafx.scene.chart.LineChart;
 import javafx.scene.chart.NumberAxis;
+import javafx.scene.chart.XYChart;
+import javafx.scene.control.CheckBox;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
+import modelo.Sesion;
 import modelo.SesionTipo;
 
 /**
@@ -57,47 +60,99 @@ public class StatsFXMLController implements Initializable {
     ArrayList<SesionTipo> sesionesArrayList;
     ObservableList<SesionTipo> sesionesObs;
     @FXML
-    private LineChart<?, ?> linechart;
+    private LineChart<String, Number> linechart;
     @FXML
     private NumberAxis yAxis;
     @FXML
     private CategoryAxis xAxis;
+    ArrayList<Sesion> sesionesGrupoActual;
+    @FXML
+    private JFXComboBox<String> mostrarsesionesComboBox;
+    ObservableList<String> sesionesDesde;
+    @FXML
+    private CheckBox trabajoCheckBox;
+    @FXML
+    private CheckBox descansoCheckBox;
+    @FXML
+    private CheckBox realCheckBox;
+
     /**
      * Initializes the controller class.
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
+        //sesionesDesde.setAll("Hoy", "Ayer", "Esta Semana", "Este Mes");
+
+        mostrarsesionesComboBox.setItems(sesionesDesde);
+        sesionesGrupoActual = grupoActual.getSesiones();
         
+        //for (int i = 0; i < sesionesGrupoActual; i++) {
+        //    sesionesGrupoActual.get(i).get
+        //}
         
-        
+
+        xAxis.setLabel("Sesiones");
+        yAxis.setLabel("Tiempo");
+        linechart.setTitle("Sesiones Grupo " + grupoActual.getCodigo());
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Tiempo de trabajo");
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Tiempo de descanso");
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("Tiempo real");
+
+        //listeners para que aparezcan o desaparezcan las variables en la linechart
+        trabajoCheckBox.selectedProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal) {
+                linechart.getData().addAll(series1);
+            } else {
+                linechart.getData().removeAll(series1);
+            }
+
+        });
+        descansoCheckBox.selectedProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal) {
+                linechart.getData().addAll(series2);
+            } else {
+                linechart.getData().removeAll(series2);
+            }
+        });
+        realCheckBox.selectedProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal) {
+                linechart.getData().addAll(series3);
+            } else {
+                linechart.getData().removeAll(series3);
+            }
+        });
+
         //Llamada a actSesiones
         IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
-        
+
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
-        
+
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-        
+
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1 ) {
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 modGrupo.setDisable(false);
                 sesionComboBox.setDisable(false);
                 graphButton.setDisable(false);
-                
+
                 sesionComboBox.setPromptText("Seleccione sesión");
             }
 
         });
-        
+
     }
 
     @FXML
@@ -109,10 +164,10 @@ public class StatsFXMLController implements Initializable {
 
     @FXML
     private void modGrupoAct(ActionEvent event) throws IOException {
-            modificarpressed = true;
-            AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
-            anchorPane.getChildren().setAll(pane);
-        
+        modificarpressed = true;
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
+
     }
 
     @FXML
@@ -121,7 +176,6 @@ public class StatsFXMLController implements Initializable {
 
     @FXML
     private void graphAct(ActionEvent event) {
-        
+
     }
 }
-    

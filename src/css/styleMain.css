@@ -28,6 +28,10 @@ and open the template in the editor.
     
 }
 
+#home{
+    -fx-background-color: #92D95F;
+    
+}
 
 .gruposesion{
     vertical-align: central;
