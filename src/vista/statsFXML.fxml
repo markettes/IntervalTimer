@@ -174,7 +174,7 @@
             </CheckBox>
          </children>
       </HBox>
-      <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="1174.0" layoutY="659.0" prefHeight="36.0" prefWidth="73.0" text="Button">
+      <JFXButton id="home" contentDisplay="GRAPHIC_ONLY" layoutX="1174.0" layoutY="659.0" onAction="#homeAction" prefHeight="36.0" prefWidth="73.0" text="Button">
          <graphic>
             <ImageView fitHeight="25.0" fitWidth="25.0" pickOnBounds="true" preserveRatio="true">
                <image>

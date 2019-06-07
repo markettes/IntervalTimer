@@ -12,7 +12,9 @@ import static intervaltimer.mainFXMLController.grupoActual;
 import static intervaltimer.mainFXMLController.modificarpressed;
 import java.io.IOException;
 import java.net.URL;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
+import java.util.Collection;
 import java.util.ResourceBundle;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
@@ -68,13 +70,16 @@ public class StatsFXMLController implements Initializable {
     ArrayList<Sesion> sesionesGrupoActual;
     @FXML
     private JFXComboBox<String> mostrarsesionesComboBox;
-    ObservableList<String> sesionesDesde;
+    ObservableList<String> sesionesDesdeObs;
     @FXML
     private CheckBox trabajoCheckBox;
     @FXML
     private CheckBox descansoCheckBox;
     @FXML
     private CheckBox realCheckBox;
+    ArrayList<String> sesionesDesde;
+
+    ArrayList<Sesion> sesionesAMostrar;
 
     /**
      * Initializes the controller class.
@@ -82,25 +87,93 @@ public class StatsFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        //sesionesDesde.setAll("Hoy", "Ayer", "Esta Semana", "Este Mes");
+        sesionesAMostrar = new ArrayList<Sesion>();
 
-        mostrarsesionesComboBox.setItems(sesionesDesde);
+        sesionesDesde = new ArrayList<String>();
+        sesionesDesde.add("Esta Semana");
+        sesionesDesde.add("Desde hace 2 semanas");
+        sesionesDesde.add("Este mes");
+        sesionesDesde.add("Todas");
+
+        sesionesDesdeObs = FXCollections.observableList(sesionesDesde);
+
+        mostrarsesionesComboBox.getItems().addAll(sesionesDesde);
         sesionesGrupoActual = grupoActual.getSesiones();
-        
-        //for (int i = 0; i < sesionesGrupoActual; i++) {
-        //    sesionesGrupoActual.get(i).get
-        //}
+
+        mostrarsesionesComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+                        
+            if (newVal.compareTo("Esta Semana") == 0) {
+                for (int i = 0; i < sesionesGrupoActual.size(); i++) {
+                    LocalDateTime sesionActual = sesionesGrupoActual.get(i).getFecha();
+                    if (sesionActual.getDayOfYear() >= LocalDateTime.now().getDayOfYear() - 7) {
+                        sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                    }
+                }
+            }
+
+            if (newVal.compareTo("Desde hace 2 semanas") == 0) {
+                for (int i = 0; i < sesionesGrupoActual.size(); i++) {
+                    LocalDateTime sesionActual = sesionesGrupoActual.get(i).getFecha();
+                    if (sesionActual.getDayOfYear() >= LocalDateTime.now().getDayOfYear() - 14) {
+                        sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                    }
+                }
+            }
+
+            if (newVal.compareTo("Este mes") == 0) {
+                for (int i = 0; i < sesionesGrupoActual.size(); i++) {
+                    LocalDateTime sesionActual = sesionesGrupoActual.get(i).getFecha();
+                    if (sesionActual.getDayOfYear() >= LocalDateTime.now().getDayOfYear() - 31) {
+                        sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                    }
+                }
+            }
+
+            if (newVal.compareTo("Todas") == 0) {
+                for (int i = 0; i < sesionesGrupoActual.size(); i++) {
+
+                    sesionesAMostrar.add(sesionesGrupoActual.get(i));
+
+                }
+            }
+
+        });
+
         
 
         xAxis.setLabel("Sesiones");
         yAxis.setLabel("Tiempo");
         linechart.setTitle("Sesiones Grupo " + grupoActual.getCodigo());
+        
+        
         XYChart.Series series1 = new XYChart.Series();
         series1.setName("Tiempo de trabajo");
+        
+        for (int i = 0; i < sesionesAMostrar.size(); i++) {
+            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(i).getTipo().getCodigo(),
+                                                    sesionesAMostrar.get(i).getTipo().getT_ejercicio() * sesionesAMostrar.get(i).getTipo().getNum_circuitos() *
+                                                            sesionesAMostrar.get(i).getTipo().getNum_ejercicios()));
+            
+        }
+        
+        
+        
         XYChart.Series series2 = new XYChart.Series();
         series2.setName("Tiempo de descanso");
+        for (int i = 0; i < sesionesAMostrar.size(); i++) {
+            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(i).getTipo().getCodigo(), 
+                                                    sesionesAMostrar.get(i).getTipo().getD_circuito() * sesionesAMostrar.get(i).getTipo().getNum_circuitos() *
+                                                    sesionesAMostrar.get(i).getTipo().getD_ejercicio() * sesionesAMostrar.get(i).getTipo().getNum_ejercicios()));
+            
+        }
+        
         XYChart.Series series3 = new XYChart.Series();
         series3.setName("Tiempo real");
+        for (int i = 0; i < sesionesAMostrar.size(); i++) {
+            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(i).getTipo().getCodigo(),sesionesAMostrar.get(i).getDuracion().toMinutes()));
+            
+        }
+        
 
         //listeners para que aparezcan o desaparezcan las variables en la linechart
         trabajoCheckBox.selectedProperty().addListener((observable, oldVal, newVal) -> {
@@ -171,11 +244,19 @@ public class StatsFXMLController implements Initializable {
     }
 
     @FXML
-    private void crearSesionAct(ActionEvent event) {
+    private void crearSesionAct(ActionEvent event
+    ) {
     }
 
     @FXML
-    private void graphAct(ActionEvent event) {
+    private void graphAct(ActionEvent event
+    ) {
 
+    }
+
+    @FXML
+    private void homeAction(ActionEvent event) throws IOException {
+        AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
+        anchorPane.getChildren().setAll(pane);
     }
 }
