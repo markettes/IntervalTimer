@@ -151,9 +151,9 @@
                </image></ImageView>
          </graphic>
       </JFXButton>
-      <JFXButton fx:id="pauseButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="713.0" layoutY="450.0" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" text=" " wrapText="true">
+      <JFXButton fx:id="pauseButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="713.0" layoutY="450.0" onAction="#pauseAct" prefHeight="98.0" prefWidth="98.0" styleClass="multimedia" text=" " wrapText="true">
          <graphic>
-            <ImageView fx:id="pauseButton" fitHeight="46.0" fitWidth="46.0" onDragDetected="#pauseAct" pickOnBounds="true" preserveRatio="true">
+            <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
                   <Image url="@../images/pause.png" />
                </image>

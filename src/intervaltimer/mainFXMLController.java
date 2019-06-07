@@ -19,6 +19,7 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import modelo.Grupo;
 import modelo.Gym;
@@ -55,6 +56,16 @@ public class mainFXMLController implements Initializable {
     ObservableList<SesionTipo> sesionesObs;
     @FXML
     private Label timelabel;
+    @FXML
+    private JFXButton startButton;
+    @FXML
+    private JFXButton pauseButton;
+    @FXML
+    private JFXButton nextButton;
+    @FXML
+    private JFXButton resetButton;
+    @FXML
+    private Label circuitNumber;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -133,6 +144,26 @@ public class mainFXMLController implements Initializable {
         //TODO
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/statsFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
+    }
+
+    @FXML
+    private void startAct(ActionEvent event) {
+    }
+
+    @FXML
+    private void pauseAct(MouseEvent event) {
+    }
+
+    @FXML
+    private void nextAct(ActionEvent event) {
+    }
+
+    @FXML
+    private void resetAct(ActionEvent event) {
+    }
+
+    @FXML
+    private void pauseAct(ActionEvent event) {
     }
     
     
