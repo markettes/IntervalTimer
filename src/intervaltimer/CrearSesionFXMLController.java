@@ -129,9 +129,9 @@ public class CrearSesionFXMLController implements Initializable {
             SesionTipo nSesionTipo = new SesionTipo();
             nSesionTipo.setCodigo(codSesionTextField.getText());
             nSesionTipo.setNum_ejercicios((int)ejercicioSlider.getValue());
-            nSesionTipo.setT_ejercicio((int)tEjercicioSlider.getValue());
-            nSesionTipo.setT_calentamiento((int)tCalSlider.getValue());
-            nSesionTipo.setD_circuito((int)tDescCircuitoSlider.getValue());
+            nSesionTipo.setT_ejercicio((int)tEjercicioSlider.getValue() * 60);
+            nSesionTipo.setT_calentamiento((int)tCalSlider.getValue() * 60);
+            nSesionTipo.setD_circuito((int)tDescCircuitoSlider.getValue() * 60);
             nSesionTipo.setD_ejercicio((int)tDescEjercicioSlider.getValue());
             nSesionTipo.setNum_circuitos((int)circuitoSlider.getValue());
             

@@ -86,25 +86,13 @@ public class mainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
-        //CRONOMETRO
-        servicio = new CronoService(20);
-        servicio.setTiempo(timeLabel.textProperty());
-        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        startButton.disableProperty().bind(iniciado);
-        resetButton.disableProperty().bind(iniciado);
-        nextButton.disableProperty().bind(iniciado);
-        servicio.setCountDown(true);
+        
 
         //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
-        //Botones multimedia
-        /*startButton.setDisable(true);
-        pauseButton.setDisable(true);
-        nextButton.setDisable(true);
-        resetButton.setDisable(true);*/
 
         gruposArrayList = gimnasio.getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -141,6 +129,15 @@ public class mainFXMLController implements Initializable {
                 }
             }
         });
+        
+        //CRONOMETRO
+        servicio = new CronoService();
+        servicio.setTiempo(timeLabel.textProperty());
+        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
+        startButton.disableProperty().bind(iniciado);
+        resetButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);
+        servicio.setCountDown(true);
 
     }
 
@@ -175,8 +172,15 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
+        int tCal = sesionTipoActual.getT_calentamiento();
+        if(tCal != 0) servicio.setCountDown(tCal);
         servicio.start();
         iniciado.setValue(true);
+        timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+            if (newVal.compareTo("00:00") == 0) {
+                //sonido
+            }
+        });
     }
 
     @FXML
@@ -215,9 +219,9 @@ class CronoService extends Service<Void> {
     private boolean countdown = false;// indica si esta en cuenta atras
     private long countDownMilis;
 
-    CronoService(int tiempoCountDown) {
+    CronoService() {
         //cuenta atras de 30 segundos, deberia de ser configurable
-        this.countDownMilis = tiempoCountDown * 1000;
+        this.countDownMilis = 30 * 1000;
     }
 
     @Override
