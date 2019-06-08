@@ -245,7 +245,7 @@ public class StatsFXMLController implements Initializable {
         });
 
         //Llamada a actSesiones
-        IntervalTimer.actualizarSesiones(sesionesArrayList, sesionComboBox, sesionesObs);
+        IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
 
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
