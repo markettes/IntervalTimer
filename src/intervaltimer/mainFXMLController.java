@@ -23,6 +23,7 @@ import javafx.beans.property.StringProperty;
 import javafx.beans.value.ObservableBooleanValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
+import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -96,8 +97,7 @@ public class mainFXMLController implements Initializable {
         resetButton.disableProperty().bind(iniciado);
         nextButton.disableProperty().bind(iniciado);
         servicio.setCountDown(true);
-        
-        
+
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
 
         //Ningún grupo seleccionado de base
@@ -180,8 +180,11 @@ public class mainFXMLController implements Initializable {
     private void startAct(ActionEvent event) {
         servicio.start();
         iniciado.setValue(true);
-        while(!servicio.isRunning()){}
-        servicio.start();
+        servicio.setOnSucceeded(e -> {
+            playSong(f);
+            
+        });
+
     }
 
     @FXML
@@ -213,7 +216,7 @@ public class mainFXMLController implements Initializable {
 
 }
 
-class CronoService extends Service<Void> {
+class CronoService extends ScheduledService<Void> {
 
     private static final int DELAY = 100;
     //tiempos
@@ -222,12 +225,12 @@ class CronoService extends Service<Void> {
     private static long stoppedTime = 0;// guarda la duracion del tiempo parados
 
     private boolean stopped = false;//indica si se ha parado el cronometro
-    private boolean countdown = false;// indica si esta en cuenta atras
+    private boolean countdown = true;// indica si esta en cuenta atras
     private long countDownMilis;
 
     CronoService() {
         //cuenta atras de 30 segundos, deberia de ser configurable
-        this.countDownMilis = 30 * 1000;
+        this.countDownMilis = 3 * 1000;
     }
 
     @Override
@@ -252,14 +255,11 @@ class CronoService extends Service<Void> {
                     if (isCancelled()) {
                         break;
                     }
-                    if (countdown) {
-                        if (calculaCountDown()) {
-                            break;
-                        }
 
-                    } else {
-                        calculaCountUp();
+                    if (calculaCountDown()) {
+                        break;
                     }
+
                 }
                 return null;
             }
@@ -270,12 +270,12 @@ class CronoService extends Service<Void> {
                 Duration duration = Duration.ofMillis(countDownMilis - totalTime);
                 final long minutos = duration.toMinutes();
                 final long segundos = duration.minusMinutes(minutos).getSeconds();
-                final long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
+                
 
                 // no se como parar en la milesima justa
-                if ((segundos == 0) && (centesimas < 10)) {
+                if ((segundos == 0)) {
                     Platform.runLater(() -> {
-                        tiempo.setValue(String.format("%02d", 0) + ":" + String.format("%02d", 0) );
+                        tiempo.setValue(String.format("%02d", 0) + ":" + String.format("%02d", 0));
                     });
                     return true;
                 } else {
@@ -286,17 +286,6 @@ class CronoService extends Service<Void> {
                 }
             }
 
-            private void calculaCountUp() {
-                lastTime = System.currentTimeMillis();
-                Long totalTime = (lastTime - startTime) - stoppedTime;
-                Duration duration = Duration.ofMillis(totalTime);
-                final Long minutos = duration.toMinutes();
-                final Long segundos = duration.minusMinutes(minutos).getSeconds();
-                final Long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
-                Platform.runLater(() -> {
-                    tiempo.setValue(String.format("%02d", minutos) + ":" + String.format("%02d", segundos));
-                });
-            }
         };
     }
 

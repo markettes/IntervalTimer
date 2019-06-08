@@ -14,6 +14,7 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
+import javafx.scene.image.Image;
 import javafx.stage.Stage;
 import modelo.Gym;
 import modelo.SesionTipo;
@@ -25,7 +26,8 @@ public class IntervalTimer extends Application {
         Parent root = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
         
         Scene scene = new Scene(root);
-        
+        stage.setTitle("Interval Timer");
+        stage.getIcons().add(new Image("/images/icon.png"));
         stage.setResizable(false);
         stage.setScene(scene);
         stage.show();
