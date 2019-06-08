@@ -86,6 +86,8 @@ public class mainFXMLController implements Initializable {
     protected SesionTipo sesionTipoActual;
     @FXML
     private Label ejercLabel;
+    
+    File f = new File("src/images/sound.mp3");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -139,7 +141,7 @@ public class mainFXMLController implements Initializable {
         startButton.disableProperty().bind(iniciado);
         resetButton.disableProperty().bind(iniciado);
         nextButton.disableProperty().bind(iniciado);
-        servicio.setCountDown(true);
+        //servicio.setCountDown(true);
 
     }
 
@@ -183,7 +185,7 @@ public class mainFXMLController implements Initializable {
             iniciado.setValue(true);
             timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
                 if (newVal.compareTo("00:00") == 0) {
-                    //sonido
+                    
                     
                 }
 
@@ -200,7 +202,7 @@ public class mainFXMLController implements Initializable {
                     iniciado.setValue(true);
                     timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
                         if (newVal.compareTo("00:00") == 0) {
-                            //sonido
+                            playSong(f);
                             
 
                         }
@@ -215,7 +217,7 @@ public class mainFXMLController implements Initializable {
                     iniciado.setValue(true);
                     timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
                         if (newVal.compareTo("00:00") == 0) {
-                            //sonido
+                            playSong(f);
                             
                         }
                     });
