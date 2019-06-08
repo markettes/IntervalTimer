@@ -8,6 +8,7 @@ package intervaltimer;
 import accesoBD.AccesoBD;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
@@ -31,6 +32,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.Media;
 import modelo.Grupo;
 import modelo.Gym;
 import modelo.SesionTipo;
@@ -81,30 +84,19 @@ public class mainFXMLController implements Initializable {
     private Property<Boolean> iniciado = new SimpleBooleanProperty(false);
     private boolean firstime;
     protected SesionTipo sesionTipoActual;
+    @FXML
+    private Label ejercLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
 
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
-        //CRONOMETRO
-        servicio = new CronoService(20);
-        servicio.setTiempo(timeLabel.textProperty());
-        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        startButton.disableProperty().bind(iniciado);
-        resetButton.disableProperty().bind(iniciado);
-        nextButton.disableProperty().bind(iniciado);
-        servicio.setCountDown(true);
 
         //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
-        //Botones multimedia
-        /*startButton.setDisable(true);
-        pauseButton.setDisable(true);
-        nextButton.setDisable(true);
-        resetButton.setDisable(true);*/
 
         gruposArrayList = gimnasio.getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -114,8 +106,6 @@ public class mainFXMLController implements Initializable {
         sesionesArrayList = gimnasio.getTiposSesion();
         //Llamada a actualizar sesiones
         IntervalTimer.actualizarSesiones(sesionesArrayList, sesionComboBox, sesionesObs);
-
-        
 
         //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
@@ -130,7 +120,7 @@ public class mainFXMLController implements Initializable {
             }
 
         });
-        
+
         sesionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             if (sesionComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 for (int i = 0; i < sesionesArrayList.size(); i++) {
@@ -141,6 +131,15 @@ public class mainFXMLController implements Initializable {
                 }
             }
         });
+
+        //CRONOMETRO
+        servicio = new CronoService();
+        servicio.setTiempo(timeLabel.textProperty());
+        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
+        startButton.disableProperty().bind(iniciado);
+        resetButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);
+        servicio.setCountDown(true);
 
     }
 
@@ -175,11 +174,56 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
-        servicio.start();
-        iniciado.setValue(true);
+        ejercLabel.setText("Calentamiento");
+        int tCal = sesionTipoActual.getT_calentamiento();
+        if (tCal != 0) {
+            servicio.setCountDown(tCal);
+
+            servicio.start();
+            iniciado.setValue(true);
+            timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+                if (newVal.compareTo("00:00") == 0) {
+                    //sonido
+                    
+                }
+
+            });
+        }
+        for (int i = 0; i < sesionTipoActual.getNum_circuitos(); i++) {
+            for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
+
+                if (j % 2 == 0) {
+                    ejercLabel.setText("Ejercicio " + (i / 2 + 1));
+                    int tEj = sesionTipoActual.getT_ejercicio();
+                    servicio.setCountDown(tEj);
+                    servicio.start();
+                    iniciado.setValue(true);
+                    timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+                        if (newVal.compareTo("00:00") == 0) {
+                            //sonido
+                            
+
+                        }
+                    });
+                }
+
+                if (j % 2 == 1) {
+                    ejercLabel.setText("Descanso " + (i / 2 + 1));
+                    int tDes = sesionTipoActual.getD_ejercicio();
+                    servicio.setCountDown(tDes);
+                    servicio.start();
+                    iniciado.setValue(true);
+                    timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+                        if (newVal.compareTo("00:00") == 0) {
+                            //sonido
+                            
+                        }
+                    });
+                }
+            }
+        }
     }
 
-    @FXML
     private void pauseAct(MouseEvent event) {
         servicio.cancel();
         servicio.reset();
@@ -194,11 +238,19 @@ public class mainFXMLController implements Initializable {
     private void resetAct(ActionEvent event) {
         servicio.restaurarInicio();
         firstime = true;
-        timeLabel.setText("00:00:00");
+        timeLabel.setText("00:00");
     }
 
     @FXML
     private void pauseAct(ActionEvent event) {
+    }
+    
+    
+    //Sonido
+    private void playSong(File file){
+        Media sound = new Media(file.toURI().toString());
+        MediaPlayer mediaPlayerS = new MediaPlayer(sound);
+        mediaPlayerS.play();
     }
 
 }
@@ -215,9 +267,9 @@ class CronoService extends Service<Void> {
     private boolean countdown = false;// indica si esta en cuenta atras
     private long countDownMilis;
 
-    CronoService(int tiempoCountDown) {
+    CronoService() {
         //cuenta atras de 30 segundos, deberia de ser configurable
-        this.countDownMilis = tiempoCountDown * 1000;
+        this.countDownMilis = 30 * 1000;
     }
 
     @Override
