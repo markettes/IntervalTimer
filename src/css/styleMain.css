@@ -60,7 +60,7 @@ and open the template in the editor.
 .promts{
     -fx-text-inner-color: white;
     -fx-prompt-text-fill: white;
-    -fx-text-fill: white;
+    
 }
 
 .multimedia{
@@ -75,4 +75,8 @@ and open the template in the editor.
 
 .jfx-progress-bar > .bar {
     -fx-background-color:  #92D95F;
+}
+.jfx-combobox{
+     -fx-text-inner-color: white;
+    
 }

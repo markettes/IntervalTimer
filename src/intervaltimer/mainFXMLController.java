@@ -79,12 +79,12 @@ public class mainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
         
         //CRONOMETRO
-        servicio = new CronoService();
+        /*servicio = new CronoService();
         servicio.setTiempo(timeLabel.textProperty());
         pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
         startButton.disableProperty().bind(iniciado);
         resetButton.disableProperty().bind(iniciado);
-        nextButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);*/
 
         //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");

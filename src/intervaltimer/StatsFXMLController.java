@@ -62,7 +62,7 @@ public class StatsFXMLController implements Initializable {
     ArrayList<SesionTipo> sesionesArrayList;
     ObservableList<SesionTipo> sesionesObs;
     @FXML
-    private LineChart<String, Number> linechart;
+    private LineChart<Integer, Integer> linechart;
     @FXML
     private NumberAxis yAxis;
     @FXML
@@ -87,9 +87,9 @@ public class StatsFXMLController implements Initializable {
     @Override
     public void initialize(URL url, ResourceBundle rb) {
         // TODO
-        sesionesAMostrar = new ArrayList<Sesion>();
+        sesionesAMostrar = new ArrayList<>();
 
-        sesionesDesde = new ArrayList<String>();
+        sesionesDesde = new ArrayList<>();
         sesionesDesde.add("Esta Semana");
         sesionesDesde.add("Desde hace 2 semanas");
         sesionesDesde.add("Este mes");
@@ -100,13 +100,47 @@ public class StatsFXMLController implements Initializable {
         mostrarsesionesComboBox.getItems().addAll(sesionesDesde);
         sesionesGrupoActual = grupoActual.getSesiones();
 
+        xAxis.setLabel("Sesiones");
+        yAxis.setLabel("Tiempo");
+        linechart.setTitle("Sesiones Grupo " + grupoActual.getCodigo());
+
+        XYChart.Series series1 = new XYChart.Series();
+        series1.setName("Tiempo de trabajo");
+
+        XYChart.Series series2 = new XYChart.Series();
+        series2.setName("Tiempo de descanso");
+
+        XYChart.Series series3 = new XYChart.Series();
+        series3.setName("Tiempo real");
+
         mostrarsesionesComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
-                        
+            if (oldVal != newVal) {
+                series1.getData().removeAll();
+                series2.getData().removeAll();
+                series3.getData().removeAll();
+            }
+
             if (newVal.compareTo("Esta Semana") == 0) {
                 for (int i = 0; i < sesionesGrupoActual.size(); i++) {
                     LocalDateTime sesionActual = sesionesGrupoActual.get(i).getFecha();
                     if (sesionActual.getDayOfYear() >= LocalDateTime.now().getDayOfYear() - 7) {
                         sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getT_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_circuitos() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getD_circuito() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    + sesionesAMostrar.get(j).getTipo().getD_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series3.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(), (int) sesionesAMostrar.get(j).getDuracion().getSeconds()));
+
+                        }
+
                     }
                 }
             }
@@ -116,6 +150,22 @@ public class StatsFXMLController implements Initializable {
                     LocalDateTime sesionActual = sesionesGrupoActual.get(i).getFecha();
                     if (sesionActual.getDayOfYear() >= LocalDateTime.now().getDayOfYear() - 14) {
                         sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getT_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getD_circuito() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    + sesionesAMostrar.get(j).getTipo().getD_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series3.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(), (int) sesionesAMostrar.get(j).getDuracion().getSeconds()));
+
+                        }
                     }
                 }
             }
@@ -125,55 +175,50 @@ public class StatsFXMLController implements Initializable {
                     LocalDateTime sesionActual = sesionesGrupoActual.get(i).getFecha();
                     if (sesionActual.getDayOfYear() >= LocalDateTime.now().getDayOfYear() - 31) {
                         sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getT_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getD_circuito() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    + sesionesAMostrar.get(j).getTipo().getD_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series3.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(), (int) sesionesAMostrar.get(j).getDuracion().getSeconds()));
+
+                        }
                     }
                 }
             }
 
             if (newVal.compareTo("Todas") == 0) {
                 for (int i = 0; i < sesionesGrupoActual.size(); i++) {
-
                     sesionesAMostrar.add(sesionesGrupoActual.get(i));
+                    for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getT_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                    sesionesAMostrar.get(j).getTipo().getD_circuito() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                    + sesionesAMostrar.get(j).getTipo().getD_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+
+                        }
+                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                            series3.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(), (int) sesionesAMostrar.get(j).getDuracion().getSeconds()));
+
+                        }
 
                 }
             }
 
         });
-
-        
-
-        xAxis.setLabel("Sesiones");
-        yAxis.setLabel("Tiempo");
-        linechart.setTitle("Sesiones Grupo " + grupoActual.getCodigo());
-        
-        
-        XYChart.Series series1 = new XYChart.Series();
-        series1.setName("Tiempo de trabajo");
-        
-        for (int i = 0; i < sesionesAMostrar.size(); i++) {
-            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(i).getTipo().getCodigo(),
-                                                    sesionesAMostrar.get(i).getTipo().getT_ejercicio() * sesionesAMostrar.get(i).getTipo().getNum_circuitos() *
-                                                            sesionesAMostrar.get(i).getTipo().getNum_ejercicios()));
-            
-        }
-        
-        
-        
-        XYChart.Series series2 = new XYChart.Series();
-        series2.setName("Tiempo de descanso");
-        for (int i = 0; i < sesionesAMostrar.size(); i++) {
-            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(i).getTipo().getCodigo(), 
-                                                    sesionesAMostrar.get(i).getTipo().getD_circuito() * sesionesAMostrar.get(i).getTipo().getNum_circuitos() *
-                                                    sesionesAMostrar.get(i).getTipo().getD_ejercicio() * sesionesAMostrar.get(i).getTipo().getNum_ejercicios()));
-            
-        }
-        
-        XYChart.Series series3 = new XYChart.Series();
-        series3.setName("Tiempo real");
-        for (int i = 0; i < sesionesAMostrar.size(); i++) {
-            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(i).getTipo().getCodigo(),sesionesAMostrar.get(i).getDuracion().toMinutes()));
-            
-        }
-        
 
         //listeners para que aparezcan o desaparezcan las variables en la linechart
         trabajoCheckBox.selectedProperty().addListener((observable, oldVal, newVal) -> {
@@ -244,13 +289,11 @@ public class StatsFXMLController implements Initializable {
     }
 
     @FXML
-    private void crearSesionAct(ActionEvent event
-    ) {
+    private void crearSesionAct(ActionEvent event) {
     }
 
     @FXML
-    private void graphAct(ActionEvent event
-    ) {
+    private void graphAct(ActionEvent event) {
 
     }
 
@@ -259,4 +302,5 @@ public class StatsFXMLController implements Initializable {
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/mainFXML.fxml"));
         anchorPane.getChildren().setAll(pane);
     }
+
 }
