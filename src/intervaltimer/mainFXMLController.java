@@ -150,6 +150,7 @@ public class mainFXMLController implements Initializable {
         //servicio.setCountDown(true);
 
         ArrayList<Integer> a = new ArrayList<>();
+        a.add(sesionTipoActual.getT_calentamiento());
         for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
             if (i % 2 == 0) {
                 for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
