@@ -41,14 +41,15 @@ public class IntervalTimer extends Application {
     
     /*Metodo para actualizar lista de sesiones
     Entrada:    - sesionesArrayList
-                - gimnasio
                 - comboBox
                 - sesionesObs
     */
     
-    public static void actualizarSesiones(ArrayList<SesionTipo> sesionesArrayList, Gym gimnasio, JFXComboBox<String> sesionComboBox, ObservableList<SesionTipo> sesionesObs){
-        sesionesArrayList = gimnasio.getTiposSesion();
+    public static void actualizarSesiones(ArrayList<SesionTipo> sesionesArrayList, JFXComboBox<String> sesionComboBox, ObservableList<SesionTipo> sesionesObs){
+        
         sesionesObs = FXCollections.observableList(sesionesArrayList);
+        
+        
         
         for (int i = 0; i < sesionesObs.size(); i++) {
             sesionComboBox.getItems().addAll(sesionesObs.get(i).getCodigo());

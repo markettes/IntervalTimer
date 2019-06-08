@@ -76,13 +76,15 @@ public class mainFXMLController implements Initializable {
     private JFXButton resetButton;
     @FXML
     private Label circuitNumber;
-    
+
     private CronoService servicio;
     private Property<Boolean> iniciado = new SimpleBooleanProperty(false);
     private boolean firstime;
+    protected SesionTipo sesionTipoActual;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
         //CRONOMETRO
         servicio = new CronoService(20);
@@ -109,9 +111,11 @@ public class mainFXMLController implements Initializable {
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-
+        sesionesArrayList = gimnasio.getTiposSesion();
         //Llamada a actualizar sesiones
-        IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
+        IntervalTimer.actualizarSesiones(sesionesArrayList, sesionComboBox, sesionesObs);
+
+        
 
         //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
@@ -126,28 +130,16 @@ public class mainFXMLController implements Initializable {
             }
 
         });
+        
+        sesionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+            if (sesionComboBox.getSelectionModel().getSelectedIndex() > -1) {
+                for (int i = 0; i < sesionesArrayList.size(); i++) {
+                    if (sesionesArrayList.get(i).getCodigo().compareTo(sesionComboBox.getSelectionModel().getSelectedItem()) == 0) {
+                        sesionTipoActual = sesionesArrayList.get(i);
+                    }
 
-        //Grupo seleccionado
-        grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
-
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
-                grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
-                modGrupo.setDisable(false);
-                sesionComboBox.setDisable(false);
-                graphButton.setDisable(false);
-
-                sesionComboBox.setPromptText("Seleccione sesión");
-            }
-
-            sesionComboBox.getSelectionModel().selectedItemProperty().addListener((observable1, oldValue1, newValue1) -> {
-                if (sesionComboBox.getSelectionModel().getSelectedIndex() > -1) {
-                    startButton.setDisable(false);
-                    pauseButton.setDisable(false);
-                    nextButton.setDisable(false);
-                    resetButton.setDisable(false);
                 }
-            });
-
+            }
         });
 
     }
@@ -210,8 +202,6 @@ public class mainFXMLController implements Initializable {
     }
 
 }
-
-
 
 class CronoService extends Service<Void> {
 

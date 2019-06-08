@@ -81,7 +81,7 @@ public class CrearGrupoFXMLController implements Initializable {
         gruposObs = FXCollections.observableList(gruposArrayList);
         
         //Llamada a actSesiones
-        IntervalTimer.actualizarSesiones(sesionesArrayList, gimnasio, sesionComboBox, sesionesObs);
+        IntervalTimer.actualizarSesiones(sesionesArrayList, sesionComboBox, sesionesObs);
         
         grupoComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
