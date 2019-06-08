@@ -99,7 +99,6 @@ public class mainFXMLController implements Initializable {
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
-        startButton.setDisable(true);
 
         gruposArrayList = gimnasio.getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -132,19 +131,14 @@ public class mainFXMLController implements Initializable {
                     }
 
                 }
-                if(grupoComboBox.getSelectionModel().getSelectedIndex() > -1){
-                    startButton.setDisable(false);
-                }
             }
         });
 
-        
-        
         //CRONOMETRO
         servicio = new CronoService();
         servicio.setTiempo(timeLabel.textProperty());
         pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        
+        startButton.disableProperty().bind(iniciado);
         resetButton.disableProperty().bind(iniciado);
         nextButton.disableProperty().bind(iniciado);
         //servicio.setCountDown(true);

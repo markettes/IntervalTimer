@@ -143,7 +143,7 @@
       </Label>
       <JFXProgressBar layoutX="662.0" layoutY="345.0" prefHeight="13.0" progress="1.0" rotate="180.0" style="-fx-background-color: #92D95F;" />
       <JFXProgressBar layoutX="862.0" layoutY="345.0" prefHeight="13.0" progress="1.0" style="-fx-background-color: red;" />
-      <JFXButton fx:id="startButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" disable="true" graphicTextGap="0.0" layoutX="813.0" layoutY="391.0" onAction="#startAct" prefHeight="98.0" prefWidth="98.0" style="-fx-background-color: #92D95F;" styleClass="multimedia" text=" ">
+      <JFXButton fx:id="startButton" buttonType="RAISED" contentDisplay="GRAPHIC_ONLY" graphicTextGap="0.0" layoutX="813.0" layoutY="391.0" onAction="#startAct" prefHeight="98.0" prefWidth="98.0" style="-fx-background-color: #92D95F;" styleClass="multimedia" text=" ">
          <graphic>
             <ImageView fitHeight="46.0" fitWidth="46.0" pickOnBounds="true" preserveRatio="true">
                <image>
