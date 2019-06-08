@@ -20,10 +20,11 @@ import javafx.beans.property.Property;
 import javafx.beans.property.SimpleBooleanProperty;
 import javafx.beans.property.SimpleStringProperty;
 import javafx.beans.property.StringProperty;
+import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableBooleanValue;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
-import javafx.concurrent.ScheduledService;
 import javafx.concurrent.Service;
 import javafx.concurrent.Task;
 import javafx.event.ActionEvent;
@@ -31,7 +32,6 @@ import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
-import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
@@ -86,9 +86,14 @@ public class mainFXMLController implements Initializable {
     private boolean firstime;
     protected SesionTipo sesionTipoActual;
     File f = new File("src/images/sound.mp3");
+    boolean reset = false;
+    int cont = 1;
+    @FXML
+    private Label ejercLabel;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
         //CRONOMETRO
         servicio = new CronoService();
         servicio.setTiempo(timeLabel.textProperty());
@@ -97,6 +102,8 @@ public class mainFXMLController implements Initializable {
         resetButton.disableProperty().bind(iniciado);
         nextButton.disableProperty().bind(iniciado);
         servicio.setCountDown(true);
+        servicio.setCountDown(3);
+        ejercLabel.setText("CALENTAMIENTO");
 
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
 
@@ -142,12 +149,66 @@ public class mainFXMLController implements Initializable {
                     }
 
                 }
+                int tEj = sesionTipoActual.getT_ejercicio();
+                int tDes = sesionTipoActual.getD_ejercicio();
+
+                ArrayList<Integer> a = new ArrayList<>();
+                a.add(sesionTipoActual.getT_calentamiento());
+                for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
+                    if (i % 2 == 0) {
+                        for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
+                            if (j % 2 == 0) {
+                                a.add(tEj);
+                            } else {
+                                a.add(tDes);
+                            }
+                        }
+                    } else {
+                        a.add(sesionTipoActual.getD_circuito());
+                    }
+                }
+
+                timeLabel.textProperty().addListener(new ChangeListener() {
+                    @Override
+                    public void changed(ObservableValue observable2, Object oldVal2, Object newVal2) {
+                        if (!reset) {
+                            if (newVal2.equals("00:00")) {
+                                if (cont < a.size()) {
+                                    if (cont % 2 == 0) {
+                                        ejercLabel.setText("DESCANSO");
+                                    } else {
+                                        ejercLabel.setText("EJERCICIO");
+                                    }
+                                    playSong(f);
+                                    servicio.setCountDown(a.get(cont));
+                                    servicio.cancel();
+                                    servicio.reset();
+                                    iniciado.setValue(false);
+                                    servicio.restaurarInicio();
+                                    firstime = true;
+                                    timeLabel.setText("00:00");
+                                    servicio.start();
+                                    iniciado.setValue(true);
+                                    cont++;
+                                }else{
+                                    //GUARDA TODO
+                                }
+
+                            }
+                        }
+
+                    }
+
+                });
             }
-        });
+
+        }
+        );
 
     }
 
     @FXML
+
     private void crearGrupoAct(ActionEvent event) throws IOException {
         modificarpressed = false;
         AnchorPane pane = FXMLLoader.load(getClass().getResource("/vista/crearGrupoFXML.fxml"));
@@ -178,13 +239,9 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
+        reset = false;
         servicio.start();
         iniciado.setValue(true);
-        servicio.setOnSucceeded(e -> {
-            playSong(f);
-            
-        });
-
     }
 
     @FXML
@@ -194,9 +251,12 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void resetAct(ActionEvent event) {
+        cont = 0;
+        reset = true;
         servicio.restaurarInicio();
         firstime = true;
         timeLabel.setText("00:00");
+
     }
 
     @FXML
@@ -216,7 +276,7 @@ public class mainFXMLController implements Initializable {
 
 }
 
-class CronoService extends ScheduledService<Void> {
+class CronoService extends Service<Void> {
 
     private static final int DELAY = 100;
     //tiempos
@@ -225,12 +285,12 @@ class CronoService extends ScheduledService<Void> {
     private static long stoppedTime = 0;// guarda la duracion del tiempo parados
 
     private boolean stopped = false;//indica si se ha parado el cronometro
-    private boolean countdown = true;// indica si esta en cuenta atras
+    private boolean countdown = false;// indica si esta en cuenta atras
     private long countDownMilis;
 
     CronoService() {
         //cuenta atras de 30 segundos, deberia de ser configurable
-        this.countDownMilis = 3 * 1000;
+        this.countDownMilis = 30 * 1000;
     }
 
     @Override
@@ -255,11 +315,14 @@ class CronoService extends ScheduledService<Void> {
                     if (isCancelled()) {
                         break;
                     }
+                    if (countdown) {
+                        if (calculaCountDown()) {
+                            break;
+                        }
 
-                    if (calculaCountDown()) {
-                        break;
+                    } else {
+                        calculaCountUp();
                     }
-
                 }
                 return null;
             }
@@ -270,10 +333,10 @@ class CronoService extends ScheduledService<Void> {
                 Duration duration = Duration.ofMillis(countDownMilis - totalTime);
                 final long minutos = duration.toMinutes();
                 final long segundos = duration.minusMinutes(minutos).getSeconds();
-                
+                final long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
 
                 // no se como parar en la milesima justa
-                if ((segundos == 0)) {
+                if ((segundos == 0) && (centesimas < 10)) {
                     Platform.runLater(() -> {
                         tiempo.setValue(String.format("%02d", 0) + ":" + String.format("%02d", 0));
                     });
@@ -286,6 +349,17 @@ class CronoService extends ScheduledService<Void> {
                 }
             }
 
+            private void calculaCountUp() {
+                lastTime = System.currentTimeMillis();
+                Long totalTime = (lastTime - startTime) - stoppedTime;
+                Duration duration = Duration.ofMillis(totalTime);
+                final Long minutos = duration.toMinutes();
+                final Long segundos = duration.minusMinutes(minutos).getSeconds();
+                final Long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
+                Platform.runLater(() -> {
+                    tiempo.setValue(String.format("%02d", minutos) + ":" + String.format("%02d", segundos));
+                });
+            }
         };
     }
 
