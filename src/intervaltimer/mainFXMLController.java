@@ -149,18 +149,15 @@ public class mainFXMLController implements Initializable {
         nextButton.disableProperty().bind(iniciado);
         //servicio.setCountDown(true);
 
-        int tEj = sesionTipoActual.getT_ejercicio();
-        int tDes = sesionTipoActual.getD_ejercicio();
-        
         ArrayList<Integer> a = new ArrayList<>();
         a.add(sesionTipoActual.getT_calentamiento());
         for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
             if (i % 2 == 0) {
                 for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
                     if (j % 2 == 0) {
-                        a.add(tEj);
+                        a.add(sesionTipoActual.getT_ejercicio());
                     } else {
-                        a.add(tDes);
+                        a.add(sesionTipoActual.getD_ejercicio());
                     }
                 }
             } else {
