@@ -136,9 +136,9 @@
             </VBox>
          </children>
       </HBox>
-      <Label fx:id="timelabel" layoutX="599.0" layoutY="106.0" text="00:00" textFill="WHITE">
+      <Label fx:id="timeLabel" layoutX="555.0" layoutY="109.0" text="00:00:00" textFill="WHITE">
          <font>
-            <Font name="Open Sans ExtraBold" size="200.0" />
+            <Font name="Open Sans ExtraBold" size="150.0" />
          </font>
       </Label>
       <JFXProgressBar layoutX="662.0" layoutY="345.0" prefHeight="13.0" progress="1.0" rotate="180.0" style="-fx-background-color: #92D95F;" />
