@@ -86,7 +86,7 @@ public class mainFXMLController implements Initializable {
     protected SesionTipo sesionTipoActual;
     @FXML
     private Label ejercLabel;
-
+    
     File f = new File("src/images/sound.mp3");
 
     @Override
@@ -143,20 +143,6 @@ public class mainFXMLController implements Initializable {
         nextButton.disableProperty().bind(iniciado);
         //servicio.setCountDown(true);
 
-        ArrayList<Integer> a = new ArrayList<>();
-        for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
-            if (i % 2 == 0) {
-                for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
-                    if (j % 2 == 0) {
-                        a.add(sesionTipoActual.getT_ejercicio());
-                    } else {
-                        a.add(sesionTipoActual.getD_ejercicio());
-                    }
-                }
-            } else {
-                a.add(sesionTipoActual.getD_circuito());
-            }
-        }
     }
 
     @FXML
@@ -190,8 +176,6 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
-        int tEj = sesionTipoActual.getT_ejercicio();
-        int tDes = sesionTipoActual.getD_ejercicio();
         ejercLabel.setText("Calentamiento");
         int tCal = sesionTipoActual.getT_calentamiento();
         if (tCal != 0) {
@@ -199,25 +183,44 @@ public class mainFXMLController implements Initializable {
 
             servicio.start();
             iniciado.setValue(true);
+            timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+                if (newVal.compareTo("00:00") == 0) {
+                    
+                    
+                }
 
+            });
         }
         for (int i = 0; i < sesionTipoActual.getNum_circuitos(); i++) {
             for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
 
                 if (j % 2 == 0) {
                     ejercLabel.setText("Ejercicio " + (i / 2 + 1));
-
+                    int tEj = sesionTipoActual.getT_ejercicio();
                     servicio.setCountDown(tEj);
                     servicio.start();
                     iniciado.setValue(true);
+                    timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+                        if (newVal.compareTo("00:00") == 0) {
+                            playSong(f);
+                            
 
-                } else {
+                        }
+                    });
+                }
+
+                if (j % 2 == 1) {
                     ejercLabel.setText("Descanso " + (i / 2 + 1));
-
+                    int tDes = sesionTipoActual.getD_ejercicio();
                     servicio.setCountDown(tDes);
                     servicio.start();
                     iniciado.setValue(true);
-
+                    timeLabel.textProperty().addListener((observable, oldVal, newVal) -> {
+                        if (newVal.compareTo("00:00") == 0) {
+                            playSong(f);
+                            
+                        }
+                    });
                 }
             }
         }
@@ -243,13 +246,13 @@ public class mainFXMLController implements Initializable {
     @FXML
     private void pauseAct(ActionEvent event) {
     }
-
+    
+    
     //Sonido
-    private void playSong(File file) {
+    private void playSong(File file){
         Media sound = new Media(file.toURI().toString());
         MediaPlayer mediaPlayerS = new MediaPlayer(sound);
         mediaPlayerS.play();
-
     }
 
 }
