@@ -86,6 +86,20 @@ public class StatsFXMLController implements Initializable {
      */
     @Override
     public void initialize(URL url, ResourceBundle rb) {
+
+        grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
+
+            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
+                grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
+                modGrupo.setDisable(false);
+                sesionComboBox.setDisable(false);
+                graphButton.setDisable(false);
+
+                sesionComboBox.setPromptText("Seleccione sesión");
+            }
+
+        });
+
         // TODO
         sesionesAMostrar = new ArrayList<>();
 
@@ -199,21 +213,21 @@ public class StatsFXMLController implements Initializable {
                 for (int i = 0; i < sesionesGrupoActual.size(); i++) {
                     sesionesAMostrar.add(sesionesGrupoActual.get(i));
                     for (int j = 0; j < sesionesAMostrar.size(); j++) {
-                            series1.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
-                                    sesionesAMostrar.get(j).getTipo().getT_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
-                                    * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+                        series1.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                sesionesAMostrar.get(j).getTipo().getT_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
 
-                        }
-                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
-                            series2.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
-                                    sesionesAMostrar.get(j).getTipo().getD_circuito() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
-                                    + sesionesAMostrar.get(j).getTipo().getD_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
+                    }
+                    for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                        series2.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(),
+                                sesionesAMostrar.get(j).getTipo().getD_circuito() * sesionesAMostrar.get(j).getTipo().getNum_circuitos()
+                                + sesionesAMostrar.get(j).getTipo().getD_ejercicio() * sesionesAMostrar.get(j).getTipo().getNum_ejercicios()));
 
-                        }
-                        for (int j = 0; j < sesionesAMostrar.size(); j++) {
-                            series3.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(), (int) sesionesAMostrar.get(j).getDuracion().getSeconds()));
+                    }
+                    for (int j = 0; j < sesionesAMostrar.size(); j++) {
+                        series3.getData().add(new XYChart.Data(sesionesAMostrar.get(j).getTipo().getCodigo(), (int) sesionesAMostrar.get(j).getDuracion().getSeconds()));
 
-                        }
+                    }
 
                 }
             }
@@ -243,7 +257,7 @@ public class StatsFXMLController implements Initializable {
                 linechart.getData().removeAll(series3);
             }
         });
-
+        sesionesArrayList = gimnasio.getTiposSesion();
         //Llamada a actSesiones
         IntervalTimer.actualizarSesiones(sesionesArrayList, sesionComboBox, sesionesObs);
 
@@ -257,19 +271,6 @@ public class StatsFXMLController implements Initializable {
         for (int i = 0; i < gruposObs.size(); i++) {
             grupoComboBox.getItems().addAll(gruposObs.get(i).getCodigo());
         }
-
-        grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
-
-            if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
-                grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
-                modGrupo.setDisable(false);
-                sesionComboBox.setDisable(false);
-                graphButton.setDisable(false);
-
-                sesionComboBox.setPromptText("Seleccione sesión");
-            }
-
-        });
 
     }
 

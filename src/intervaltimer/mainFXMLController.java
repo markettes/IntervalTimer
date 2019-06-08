@@ -90,14 +90,7 @@ public class mainFXMLController implements Initializable {
     public void initialize(URL url, ResourceBundle rb) {
 
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
-        //CRONOMETRO
-        servicio = new CronoService(20);
-        servicio.setTiempo(timeLabel.textProperty());
-        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        startButton.disableProperty().bind(iniciado);
-        resetButton.disableProperty().bind(iniciado);
-        nextButton.disableProperty().bind(iniciado);
-        servicio.setCountDown(true);
+        
 
         //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
@@ -195,20 +188,14 @@ public class mainFXMLController implements Initializable {
             }
         }
         
-            servicio.setCountDown(3);
-
-            servicio.start();
-            iniciado.setValue(true);
-
-            servicio.setOnSucceeded(e -> {
-                playSong(f);
-                servicio.cancel();
-                servicio.reset();
-                iniciado.setValue(false);
-                
-            });
-            
-        
+        //CRONOMETRO
+        servicio = new CronoService(a);
+        servicio.setTiempo(timeLabel.textProperty());
+        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
+        startButton.disableProperty().bind(iniciado);
+        resetButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);
+        servicio.setCountDown(true);
 
     }
 
@@ -252,10 +239,12 @@ class CronoService extends Service<Void> {
     private boolean stopped = false;//indica si se ha parado el cronometro
     private boolean countdown = false;// indica si esta en cuenta atras
     private long countDownMilis;
+    ArrayList<Integer> a;
 
-    CronoService(int tiempoCountDown) {
+    CronoService(ArrayList<Integer> a) {
         //cuenta atras de 30 segundos, deberia de ser configurable
-        this.countDownMilis = tiempoCountDown * 1000;
+        this.a = a;
+        this.countDownMilis = 30 * 1000;
     }
 
     @Override
@@ -269,31 +258,34 @@ class CronoService extends Service<Void> {
                     stoppedTime = stoppedTime + elapsedTime;
                     stopped = false;
                 }
-                while (true) {
-                    try {
-                        Thread.sleep(DELAY);
-                    } catch (InterruptedException ex) {
+                for (int i = 0; i < a.size(); i++) {
+                    while (true) {
+                        try {
+                            Thread.sleep(DELAY);
+                        } catch (InterruptedException ex) {
+                            if (isCancelled()) {
+                                break;
+                            }
+                        }
                         if (isCancelled()) {
                             break;
                         }
-                    }
-                    if (isCancelled()) {
-                        break;
-                    }
-                    if (countdown) {
-                        if (calculaCountDown()) {
-                            break;
-                        }
+                        if (countdown) {
+                            setCountDown(a.get(i)*60);
+                            if (calculaCountDown(a.get(i)*1000)) {
+                                break;
+                            }
 
+                        }
                     }
                 }
                 return null;
             }
 
-            public boolean calculaCountDown() {
+            public boolean calculaCountDown(int t) {
                 lastTime = System.currentTimeMillis();
                 Long totalTime = (lastTime - startTime) - stoppedTime;
-                Duration duration = Duration.ofMillis(countDownMilis - totalTime);
+                Duration duration = Duration.ofMillis(t - totalTime);
                 final long minutos = duration.toMinutes();
                 final long segundos = duration.minusMinutes(minutos).getSeconds();
 

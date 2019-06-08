@@ -76,6 +76,7 @@ public class CrearGrupoFXMLController implements Initializable {
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
+        sesionesArrayList = gimnasio.getTiposSesion();
 
         gruposArrayList = database.getGym().getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -85,6 +86,7 @@ public class CrearGrupoFXMLController implements Initializable {
         
         grupoComboBox.getSelectionModel().selectedIndexProperty().addListener((observable, oldVal, newVal) -> {
             if (grupoComboBox.getSelectionModel().getSelectedIndex() > -1) {
+                grupoActual = gruposArrayList.get(grupoComboBox.getSelectionModel().getSelectedIndex());
                 sesionComboBox.setDisable(false);
                 modGrupo.setDisable(false);
                 graphButton.setDisable(false);
