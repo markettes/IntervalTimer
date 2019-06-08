@@ -91,14 +91,6 @@ public class mainFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //CRONOMETRO
-        servicio = new CronoService();
-        servicio.setTiempo(timeLabel.textProperty());
-        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        startButton.disableProperty().bind(iniciado);
-        resetButton.disableProperty().bind(iniciado);
-        nextButton.disableProperty().bind(iniciado);
-        servicio.setCountDown(true);
 
         timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
 
@@ -107,7 +99,7 @@ public class mainFXMLController implements Initializable {
         modGrupo.setDisable(true);
         sesionComboBox.setDisable(true);
         graphButton.setDisable(true);
-        
+        startButton.setDisable(true);
 
         gruposArrayList = gimnasio.getGrupos();
         gruposObs = FXCollections.observableList(gruposArrayList);
@@ -140,12 +132,41 @@ public class mainFXMLController implements Initializable {
                     }
 
                 }
+                if(grupoComboBox.getSelectionModel().getSelectedIndex() > -1){
+                    startButton.setDisable(false);
+                }
             }
         });
 
         
         
+        //CRONOMETRO
+        servicio = new CronoService();
+        servicio.setTiempo(timeLabel.textProperty());
+        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
         
+        resetButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);
+        //servicio.setCountDown(true);
+
+        int tEj = sesionTipoActual.getT_ejercicio();
+        int tDes = sesionTipoActual.getD_ejercicio();
+        
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(sesionTipoActual.getT_calentamiento());
+        for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
+                    if (j % 2 == 0) {
+                        a.add(tEj);
+                    } else {
+                        a.add(tDes);
+                    }
+                }
+            } else {
+                a.add(sesionTipoActual.getD_circuito());
+            }
+        }
     }
 
     @FXML
@@ -179,32 +200,37 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
-        servicio.start();
-        iniciado.setValue(true);
-
         int tEj = sesionTipoActual.getT_ejercicio();
         int tDes = sesionTipoActual.getD_ejercicio();
-        
-        ArrayList<Integer> a = new ArrayList<>();
-        a.add(sesionTipoActual.getT_calentamiento());
-        for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
-            if (i % 2 == 0) {
-                for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
-                    if (j % 2 == 0) {
-                        a.add(tEj);
-                    } else {
-                        a.add(tDes);
-                    }
+        ejercLabel.setText("Calentamiento");
+        int tCal = sesionTipoActual.getT_calentamiento();
+        if (tCal != 0) {
+            servicio.setCountDown(tCal);
+
+            servicio.start();
+            iniciado.setValue(true);
+
+        }
+        for (int i = 0; i < sesionTipoActual.getNum_circuitos(); i++) {
+            for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
+
+                if (j % 2 == 0) {
+                    ejercLabel.setText("Ejercicio " + (i / 2 + 1));
+
+                    servicio.setCountDown(tEj);
+                    servicio.start();
+                    iniciado.setValue(true);
+
+                } else {
+                    ejercLabel.setText("Descanso " + (i / 2 + 1));
+
+                    servicio.setCountDown(tDes);
+                    servicio.start();
+                    iniciado.setValue(true);
+
                 }
-            } else {
-                a.add(sesionTipoActual.getD_circuito());
             }
         }
-        
-        
-        
-        
-        
     }
 
     private void pauseAct(MouseEvent event) {
