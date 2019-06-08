@@ -12,6 +12,7 @@ import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
+import java.time.LocalDateTime;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
 import javafx.application.Platform;
@@ -37,6 +38,7 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import modelo.Grupo;
 import modelo.Gym;
+import modelo.Sesion;
 import modelo.SesionTipo;
 
 /**
@@ -90,10 +92,14 @@ public class mainFXMLController implements Initializable {
     int cont = 1;
     @FXML
     private Label ejercLabel;
+    ArrayList<Sesion> sesionesGrupo;
+    
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
+        
+        
+        
         //CRONOMETRO
         servicio = new CronoService();
         servicio.setTiempo(timeLabel.textProperty());
@@ -192,6 +198,20 @@ public class mainFXMLController implements Initializable {
                                     cont++;
                                 }else{
                                     //GUARDA TODO
+                                    
+                                    sesionesGrupo = grupoActual.getSesiones();
+                                    Sesion sesionActual = new Sesion();
+                                    
+                                    sesionActual.setDuracion(Duration.ofSeconds(Long.parseLong(servicio.getTiempo().substring(0,1)) * 60 + Long.parseLong(servicio.getTiempo().substring(3))));
+                                    sesionActual.setFecha(LocalDateTime.now());
+                                    sesionActual.setTipo(sesionTipoActual);
+                                    
+                                    sesionesGrupo.add(sesionActual);
+                                    grupoActual.setSesiones(sesionesGrupo);
+                                    gruposArrayList.remove(grupoActual);
+                                    gruposArrayList.add(grupoActual);
+                                    gimnasio.setGrupos(gruposArrayList);
+                                    database.salvar();
                                 }
 
                             }
