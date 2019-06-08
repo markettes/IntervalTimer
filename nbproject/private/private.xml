@@ -3,12 +3,9 @@
     <editor-bookmarks xmlns="http://www.netbeans.org/ns/editor-bookmarks/2" lastBookmarkId="0"/>
     <open-files xmlns="http://www.netbeans.org/ns/projectui-open-files/2">
         <group>
-            <file>file:/D:/Documents/GitHub/IntervalTimer/src/intervaltimer/CrearGrupoFXMLController.java</file>
-            <file>file:/D:/Documents/GitHub/IntervalTimer/src/intervaltimer/CrearSesionFXMLController.java</file>
-            <file>file:/D:/Documents/GitHub/IntervalTimer/src/intervaltimer/IntervalTimer.java</file>
-            <file>file:/D:/Documents/GitHub/IntervalTimer/src/intervaltimer/mainFXMLController.java</file>
-            <file>file:/D:/Documents/GitHub/IntervalTimer/src/css/styleMain.css</file>
-            <file>file:/D:/Documents/GitHub/IntervalTimer/src/intervaltimer/StatsFXMLController.java</file>
+            <file>file:/C:/Users/Carlos/Documents/GitHub/IntervalTimer/src/intervaltimer/CrearGrupoFXMLController.java</file>
+            <file>file:/C:/Users/Carlos/Documents/GitHub/IntervalTimer/src/intervaltimer/mainFXMLController.java</file>
+            <file>file:/C:/Users/Carlos/Documents/GitHub/IntervalTimer/src/intervaltimer/StatsFXMLController.java</file>
         </group>
     </open-files>
 </project-private>

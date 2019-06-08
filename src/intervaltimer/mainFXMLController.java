@@ -8,6 +8,7 @@ package intervaltimer;
 import accesoBD.AccesoBD;
 import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXComboBox;
+import java.io.File;
 import java.io.IOException;
 import java.net.URL;
 import java.time.Duration;
@@ -31,6 +32,8 @@ import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
 import modelo.Grupo;
 import modelo.Gym;
 import modelo.SesionTipo;
@@ -81,6 +84,7 @@ public class mainFXMLController implements Initializable {
     private Property<Boolean> iniciado = new SimpleBooleanProperty(false);
     private boolean firstime;
     protected SesionTipo sesionTipoActual;
+    File f = new File("src/images/sound.mp3");
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
@@ -115,8 +119,6 @@ public class mainFXMLController implements Initializable {
         //Llamada a actualizar sesiones
         IntervalTimer.actualizarSesiones(sesionesArrayList, sesionComboBox, sesionesObs);
 
-        
-
         //Grupo seleccionado
         grupoComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
 
@@ -130,7 +132,7 @@ public class mainFXMLController implements Initializable {
             }
 
         });
-        
+
         sesionComboBox.getSelectionModel().selectedItemProperty().addListener((observable, oldVal, newVal) -> {
             if (sesionComboBox.getSelectionModel().getSelectedIndex() > -1) {
                 for (int i = 0; i < sesionesArrayList.size(); i++) {
@@ -175,30 +177,66 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
-        servicio.start();
-        iniciado.setValue(true);
-    }
+        int tEj = sesionTipoActual.getT_ejercicio();
+        int tDes = sesionTipoActual.getD_ejercicio();
+        ArrayList<Integer> a = new ArrayList<>();
+        a.add(sesionTipoActual.getT_calentamiento());
+        for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
+            if (i % 2 == 0) {
+                for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
+                    if (j % 2 == 0) {
+                        a.add(tEj);
+                    } else {
+                        a.add(tDes);
+                    }
+                }
+            } else {
+                a.add(sesionTipoActual.getD_circuito());
+            }
+        }
+        
+            servicio.setCountDown(3);
 
-    @FXML
-    private void pauseAct(MouseEvent event) {
-        servicio.cancel();
-        servicio.reset();
-        iniciado.setValue(false);
+            servicio.start();
+            iniciado.setValue(true);
+
+            servicio.setOnSucceeded(e -> {
+                playSong(f);
+                servicio.cancel();
+                servicio.reset();
+                iniciado.setValue(false);
+                
+            });
+            
+        
+
     }
 
     @FXML
     private void nextAct(ActionEvent event) {
+
     }
 
     @FXML
     private void resetAct(ActionEvent event) {
         servicio.restaurarInicio();
         firstime = true;
-        timeLabel.setText("00:00:00");
+        timeLabel.setText("00:00");
     }
 
     @FXML
     private void pauseAct(ActionEvent event) {
+        servicio.cancel();
+        servicio.reset();
+        iniciado.setValue(false);
+    }
+
+    //Sonido
+    private void playSong(File file) {
+        Media sound = new Media(file.toURI().toString());
+        MediaPlayer mediaPlayerS = new MediaPlayer(sound);
+        mediaPlayerS.play();
+
     }
 
 }
@@ -247,23 +285,20 @@ class CronoService extends Service<Void> {
                             break;
                         }
 
-                    } else {
-                        calculaCountUp();
                     }
                 }
                 return null;
             }
 
-            private boolean calculaCountDown() {
+            public boolean calculaCountDown() {
                 lastTime = System.currentTimeMillis();
                 Long totalTime = (lastTime - startTime) - stoppedTime;
                 Duration duration = Duration.ofMillis(countDownMilis - totalTime);
                 final long minutos = duration.toMinutes();
                 final long segundos = duration.minusMinutes(minutos).getSeconds();
-                final long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
 
                 // no se como parar en la milesima justa
-                if ((segundos == 0) && (centesimas < 10)) {
+                if ((segundos == 0)) {
                     Platform.runLater(() -> {
                         tiempo.setValue(String.format("%02d", 0) + ":" + String.format("%02d", 0));
                     });
@@ -276,17 +311,6 @@ class CronoService extends Service<Void> {
                 }
             }
 
-            private void calculaCountUp() {
-                lastTime = System.currentTimeMillis();
-                Long totalTime = (lastTime - startTime) - stoppedTime;
-                Duration duration = Duration.ofMillis(totalTime);
-                final Long minutos = duration.toMinutes();
-                final Long segundos = duration.minusMinutes(minutos).getSeconds();
-                final Long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
-                Platform.runLater(() -> {
-                    tiempo.setValue(String.format("%02d", minutos) + ":" + String.format("%02d", segundos));
-                });
-            }
         };
     }
 
