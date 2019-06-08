@@ -88,9 +88,17 @@ public class mainFXMLController implements Initializable {
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-
-        timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
+        //CRONOMETRO
+        servicio = new CronoService();
+        servicio.setTiempo(timeLabel.textProperty());
+        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
+        startButton.disableProperty().bind(iniciado);
+        resetButton.disableProperty().bind(iniciado);
+        nextButton.disableProperty().bind(iniciado);
+        servicio.setCountDown(true);
         
+        
+        timeLabel.setText(String.format("%02d", 0) + ":" + String.format("%02d", 0));
 
         //Ningún grupo seleccionado de base
         sesionComboBox.setPromptText("Seleccione 1º un grupo");
@@ -170,33 +178,10 @@ public class mainFXMLController implements Initializable {
 
     @FXML
     private void startAct(ActionEvent event) {
-        int tEj = sesionTipoActual.getT_ejercicio();
-        int tDes = sesionTipoActual.getD_ejercicio();
-        ArrayList<Integer> a = new ArrayList<>();
-        a.add(sesionTipoActual.getT_calentamiento());
-        for (int i = 0; i < sesionTipoActual.getNum_circuitos() * 2 - 1; i++) {
-            if (i % 2 == 0) {
-                for (int j = 0; j < sesionTipoActual.getNum_ejercicios() * 2 - 1; j++) {
-                    if (j % 2 == 0) {
-                        a.add(tEj);
-                    } else {
-                        a.add(tDes);
-                    }
-                }
-            } else {
-                a.add(sesionTipoActual.getD_circuito());
-            }
-        }
-        
-        //CRONOMETRO
-        servicio = new CronoService(a);
-        servicio.setTiempo(timeLabel.textProperty());
-        pauseButton.disableProperty().bind(Bindings.not((ObservableBooleanValue) iniciado));
-        startButton.disableProperty().bind(iniciado);
-        resetButton.disableProperty().bind(iniciado);
-        nextButton.disableProperty().bind(iniciado);
-        servicio.setCountDown(true);
-
+        servicio.start();
+        iniciado.setValue(true);
+        while(!servicio.isRunning()){}
+        servicio.start();
     }
 
     @FXML
@@ -239,11 +224,9 @@ class CronoService extends Service<Void> {
     private boolean stopped = false;//indica si se ha parado el cronometro
     private boolean countdown = false;// indica si esta en cuenta atras
     private long countDownMilis;
-    ArrayList<Integer> a;
 
-    CronoService(ArrayList<Integer> a) {
+    CronoService() {
         //cuenta atras de 30 segundos, deberia de ser configurable
-        this.a = a;
         this.countDownMilis = 30 * 1000;
     }
 
@@ -258,41 +241,41 @@ class CronoService extends Service<Void> {
                     stoppedTime = stoppedTime + elapsedTime;
                     stopped = false;
                 }
-                for (int i = 0; i < a.size(); i++) {
-                    while (true) {
-                        try {
-                            Thread.sleep(DELAY);
-                        } catch (InterruptedException ex) {
-                            if (isCancelled()) {
-                                break;
-                            }
-                        }
+                while (true) {
+                    try {
+                        Thread.sleep(DELAY);
+                    } catch (InterruptedException ex) {
                         if (isCancelled()) {
                             break;
                         }
-                        if (countdown) {
-                            setCountDown(a.get(i)*60);
-                            if (calculaCountDown(a.get(i)*1000)) {
-                                break;
-                            }
-
+                    }
+                    if (isCancelled()) {
+                        break;
+                    }
+                    if (countdown) {
+                        if (calculaCountDown()) {
+                            break;
                         }
+
+                    } else {
+                        calculaCountUp();
                     }
                 }
                 return null;
             }
 
-            public boolean calculaCountDown(int t) {
+            private boolean calculaCountDown() {
                 lastTime = System.currentTimeMillis();
                 Long totalTime = (lastTime - startTime) - stoppedTime;
-                Duration duration = Duration.ofMillis(t - totalTime);
+                Duration duration = Duration.ofMillis(countDownMilis - totalTime);
                 final long minutos = duration.toMinutes();
                 final long segundos = duration.minusMinutes(minutos).getSeconds();
+                final long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
 
                 // no se como parar en la milesima justa
-                if ((segundos == 0)) {
+                if ((segundos == 0) && (centesimas < 10)) {
                     Platform.runLater(() -> {
-                        tiempo.setValue(String.format("%02d", 0) + ":" + String.format("%02d", 0));
+                        tiempo.setValue(String.format("%02d", 0) + ":" + String.format("%02d", 0) );
                     });
                     return true;
                 } else {
@@ -303,6 +286,17 @@ class CronoService extends Service<Void> {
                 }
             }
 
+            private void calculaCountUp() {
+                lastTime = System.currentTimeMillis();
+                Long totalTime = (lastTime - startTime) - stoppedTime;
+                Duration duration = Duration.ofMillis(totalTime);
+                final Long minutos = duration.toMinutes();
+                final Long segundos = duration.minusMinutes(minutos).getSeconds();
+                final Long centesimas = duration.minusSeconds(segundos).toNanos() / 10000000;
+                Platform.runLater(() -> {
+                    tiempo.setValue(String.format("%02d", minutos) + ":" + String.format("%02d", segundos));
+                });
+            }
         };
     }
 
